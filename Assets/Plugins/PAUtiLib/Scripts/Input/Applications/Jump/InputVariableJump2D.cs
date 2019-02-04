@@ -23,6 +23,9 @@ public class InputVariableJump2D : InputDistributed
     [SerializeField]
     [Tooltip("What the vertical velocity is multiplied by when the variable jump occurs.")]
     float variableJumpDampFactor = 0.5f;
+    [SerializeField]
+    [Tooltip("What button to press to jump.")]
+    KeyCode buttonJump = KeyCode.W;
 
     // Whether variable jumping has occurred yet.
     // It can only occur if this variable is false.
@@ -32,7 +35,7 @@ public class InputVariableJump2D : InputDistributed
 
     public override void ReceiveInput(InputReader inputReader)
     {
-        if (inputReader.GetKeyUp(KeyCode.Space))
+        if (inputReader.GetKeyUp(buttonJump))
         {
             if (!variableJumped)
             {

@@ -14,10 +14,13 @@ public class InputGroundBasedJump2D : InputDistributed
     [SerializeField]
     [Tooltip("The component to use for jumping.")]
     GroundBasedJumper2D groundBasedJumper;
+    [SerializeField]
+    [Tooltip("What button to press to jump.")]
+    KeyCode buttonJump = KeyCode.W;
 
     public override void ReceiveInput(InputReader inputReader)
     {
-        if (inputReader.GetKeyDown(KeyCode.Space))
+        if (inputReader.GetKeyDown(buttonJump))
         {
             // Try to jump.
             if (groundBasedJumper.TryJump())
