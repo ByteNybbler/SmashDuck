@@ -34,12 +34,27 @@ public class Player : MonoBehaviour
             {
                 // DIE!!!
                 Die(otherTeam);
+                // Destroy the projectile.
+                if (collision.CompareTag("Projectile"))
+                {
+                    Destroy(collision.gameObject);
+                }
             }
         }
     }
 
     private void Die(int killedByTeam)
     {
+        // Reward a point to the given team.
         scoreboard.AddScore(killedByTeam, 1);
+
+        // Killed by falling off the stage!
+        if (killedByTeam == -1)
+        {
+            scoreboard.AddScore(team, -1);
+        }
+
+        // Respawn.
+        transform.position = Vector3.zero;
     }
 }

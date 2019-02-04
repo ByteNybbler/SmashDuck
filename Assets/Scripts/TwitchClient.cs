@@ -99,7 +99,7 @@ public class TwitchClient : MonoBehaviour
         float numberOfSeconds = timerVoteRange.GetRandom();
         timerVote.SetSecondsTarget(numberOfSeconds);
         SendChat("Use the !vote command to vote for the next stage hazard! You have "
-            + numberOfSeconds + " seconds to vote! Hazard #1: Fortnite, Hazard #2: Dabbing, Hazard #3: Me");
+            + numberOfSeconds + " seconds to vote! Hazard 1: Fortnite, Hazard 2: Dabbing, Hazard 3: Me");
     }
 
     private void TimerVote_Finished(float secondsOverflow)
