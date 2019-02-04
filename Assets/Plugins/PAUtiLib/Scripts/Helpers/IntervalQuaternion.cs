@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class IntervalQuaternion
 {
     [SerializeField]
@@ -81,5 +82,10 @@ public class IntervalQuaternion
         Quaternion radius = GetRadius();
         start = center * Quaternion.Inverse(radius);
         end = center * radius;
+    }
+    // Returns a random quaternion from the interval.
+    public Quaternion GetRandom()
+    {
+        return Slerp(Random.Range(0.0f, 1.0f));
     }
 }

@@ -87,6 +87,11 @@ public class IntervalFloat
         start = center - radius;
         end = center + radius;
     }
+    // Returns a random float from the interval.
+    public float GetRandom()
+    {
+        return Lerp(Random.Range(0.0f, 1.0f));
+    }
 
     // Returns an array of floats that are evenly spaced out from each other
     // and cover this interval. The distance between each float is based on

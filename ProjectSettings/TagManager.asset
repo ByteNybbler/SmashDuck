@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 4135327337
+    locked: 0
+  - name: Walls
+    uniqueID: 3765822917
+    locked: 0
+  - name: Collectibles
+    uniqueID: 212039139
+    locked: 0
+  - name: Projectiles
+    uniqueID: 1324532523
+    locked: 0
+  - name: Player
+    uniqueID: 2269403157
+    locked: 0
