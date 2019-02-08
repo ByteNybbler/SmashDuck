@@ -194,8 +194,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneLoading:
-    sceneAsset: {fileID: 0}
-    scenePath: 
+    sceneAsset: {fileID: 102900000, guid: 0c48b79ad4553c24abcd31e1a0e786d3, type: 3}
+    scenePath: Assets/Scenes/Loading.unity
 --- !u!114 &1077318001
 MonoBehaviour:
   m_ObjectHideFlags: 0
