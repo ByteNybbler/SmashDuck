@@ -6,7 +6,7 @@
 [subrepo]
 	remote = https://github.com/ByteNybbler/PAUtiLib
 	branch = master
-	commit = e31b6d3345cfdbbf67205eaf98c7abae9b1ade32
-	parent = 14bbd0961be6bd25dfdb223c756445f4fdcacce3
+	commit = 6cc6e3deba237a50899709ac571e5ee38e2c18d6
+	parent = b86662f0a7475b07533d062d90a039076bcc80d9
 	method = merge
 	cmdver = 0.4.0
