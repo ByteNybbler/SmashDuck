@@ -6,55 +6,73 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct CameraDataOrtho2D
+public class CameraDataOrtho2D : IDeepCopyable<CameraDataOrtho2D>
 {
     // The position of the camera in space.
-    Vector3 position;
+    // Does not account for the z-coordinate.
+    Vector2 position;
     // The orthographic size is half the camera's height in world units.
     float orthographicSize;
     // The aspect ratio (width divided by height).
     float aspect;
 
+    // Constructor.
+    CameraDataOrtho2D(Vector2 position, float orthographicSize, float aspect)
+    {
+        this.position = position;
+        this.orthographicSize = orthographicSize;
+        this.aspect = aspect;
+    }
+
+    // Deep copy method.
+    public CameraDataOrtho2D DeepCopy()
+    {
+        return new CameraDataOrtho2D(position, orthographicSize, aspect);
+    }
+
     // Construct the camera data based on the state of an existing camera.
+    // This is the recommended way to construct this class.
     public CameraDataOrtho2D(Camera cam)
     {
         position = cam.transform.position;
         orthographicSize = cam.orthographicSize;
         aspect = cam.aspect;
     }
+    /*
+    public static CameraDataOrtho2D FromCamera(Camera cam)
+    {
+        return new CameraDataOrtho2D(cam.transform.position, cam.orthographicSize, cam.aspect);
+    }
+    */
+
+    // Construct the camera data based on a rectangle.
+    public CameraDataOrtho2D(Rect rect)
+    {
+        FitRect(rect);
+    }
 
     // Assign this data to an orthographic camera.
     public void AssignTo(Camera cam)
     {
-        cam.transform.position = position;
+        // Move the camera to the new 2D position without modifying the camera z position.
+        cam.transform.position = Swizzle.Vec3(position, "xy-", cam.transform.position);
         cam.orthographicSize = orthographicSize;
         cam.aspect = aspect;
     }
 
-    // Interpolate.
-    public static CameraDataOrtho2D Lerp(CameraDataOrtho2D a, CameraDataOrtho2D b, float t)
-    {
-        CameraDataOrtho2D result = new CameraDataOrtho2D();
-        result.position = Vector3.Lerp(a.position, b.position, t);
-        result.orthographicSize = Mathf.Lerp(a.orthographicSize, b.orthographicSize, t);
-        result.aspect = Mathf.Lerp(a.aspect, b.aspect, t);
-        return result;
-    }
-    public static CameraDataOrtho2D SmoothStep(CameraDataOrtho2D a, CameraDataOrtho2D b, float t)
-    {
-        return Lerp(a, b, Mathf.SmoothStep(0.0f, 1.0f, t));
-    }
-
+    // Returns the camera position in space.
     public Vector2 GetPosition()
     {
         return position;
     }
 
+    // Returns half the height of the camera view in world units.
     public float GetOrthographicSize()
     {
         return orthographicSize;
     }
 
+    // Returns the aspect ratio of the camera view.
     public float GetAspect()
     {
         return aspect;
@@ -70,18 +88,6 @@ public struct CameraDataOrtho2D
     public float GetHeight()
     {
         return 2 * orthographicSize;
-    }
-
-    // Adjust the orthographic size to fit the given width, in world units.
-    public void FitWidth(float width)
-    {
-        orthographicSize = width / (2 * aspect);
-    }
-
-    // Adjust the orthographic size to fit the given height, in world units.
-    public void FitHeight(float height)
-    {
-        orthographicSize = height * 0.5f;
     }
 
     public float GetHalfWidth()
@@ -118,21 +124,73 @@ public struct CameraDataOrtho2D
         return position.y - GetHalfHeight();
     }
 
-    public void SetPosition(Vector3 position)
+    // Adjust the orthographic size to fit the given width, in world units.
+    public void FitWidth(float width)
+    {
+        orthographicSize = width / (2 * aspect);
+    }
+
+    // Adjust the orthographic size to fit the given height, in world units.
+    public void FitHeight(float height)
+    {
+        orthographicSize = height * 0.5f;
+    }
+
+    // Adjust the orthographic size to fit both the given width and height, in world units.
+    public void FitWidthAndHeight(float width, float height)
+    {
+        if (width > height)
+        {
+            FitWidth(width);
+        }
+        else
+        {
+            FitHeight(height);
+        }
+    }
+
+    // Adjust the camera data to fit the given rectangle.
+    public void FitRect(Rect rect)
+    {
+        position = rect.center;
+        FitWidthAndHeight(rect.width, rect.height);
+    }
+
+    // Adjust the camera data to fit the given bounds.
+    public void FitBounds(Bounds bounds)
+    {
+        position = bounds.center;
+        FitWidthAndHeight(bounds.max.x - bounds.min.x, bounds.max.y - bounds.min.y);
+    }
+
+    public void SetPosition(Vector2 position)
     {
         this.position = position;
     }
 
-    public void OffsetPosition(Vector3 offset)
+    public void OffsetPosition(Vector2 offset)
     {
         position += offset;
     }
 
+    // Interpolate.
+    public static CameraDataOrtho2D Lerp(CameraDataOrtho2D a, CameraDataOrtho2D b, float t)
+    {
+        return new CameraDataOrtho2D(
+            Vector3.Lerp(a.position, b.position, t),
+            Mathf.Lerp(a.orthographicSize, b.orthographicSize, t),
+            Mathf.Lerp(a.aspect, b.aspect, t));
+    }
+    public static CameraDataOrtho2D SmoothStep(CameraDataOrtho2D a, CameraDataOrtho2D b, float t)
+    {
+        return Lerp(a, b, Mathf.SmoothStep(0.0f, 1.0f, t));
+    }
+
     // Positions and resizes the camera so that the camera is placed between
     // two given points and has edges that contain those points.
-    public void AnchorBetween(Vector3 first, Vector3 second)
+    public void AnchorBetween(Vector2 first, Vector2 second)
     {
-        position = Vector3.Lerp(first, second, 0.5f);
+        position = Vector2.Lerp(first, second, 0.5f);
         float differenceX = second.x - first.x;
         float differenceY = second.y - first.y;
         int signX = UtilMath.SignWithZero(differenceX);
@@ -165,7 +223,7 @@ public struct CameraDataOrtho2D
     // of the camera. The vertices should be defined in a clockwise order.
     // If the given edge is diagonal, nothing happens.
     // (TODO: Perhaps diagonal edges should rotate the camera to match the edge?)
-    public void AnchorClockwiseEdge(Vector3 vertexFirst, Vector3 vertexSecond)
+    public void AnchorToClockwiseEdge(Vector2 vertexFirst, Vector2 vertexSecond)
     {
         float differenceX = vertexSecond.x - vertexFirst.x;
         float differenceY = vertexSecond.y - vertexFirst.y;
@@ -174,13 +232,13 @@ public struct CameraDataOrtho2D
         if (signX == 0)
         {
             FitHeight(Mathf.Abs(differenceY));
-            position = new Vector3(vertexFirst.x + GetHalfWidth() * signY,
+            position = new Vector2(vertexFirst.x + GetHalfWidth() * signY,
                 vertexFirst.y + GetHalfHeight() * signY);
         }
         else if (signY == 0)
         {
             FitWidth(Mathf.Abs(differenceX));
-            position = new Vector3(vertexFirst.x + GetHalfWidth() * signX,
+            position = new Vector2(vertexFirst.x + GetHalfWidth() * signX,
                 vertexFirst.y - GetHalfHeight() * signX);
         }
         else

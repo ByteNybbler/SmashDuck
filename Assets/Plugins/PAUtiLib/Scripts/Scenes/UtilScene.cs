@@ -1,12 +1,12 @@
 ﻿// Author(s): Paul Calande
-// Scene utility class.
+// Scene utility class for raw scene management.
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UtilScene : MonoBehaviour
+public static class UtilScene
 {
     // Loads the next scene according to the build index.
     public static void LoadNextScene()

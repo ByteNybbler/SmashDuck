@@ -11,12 +11,18 @@ public class RoundTimer : MonoBehaviour
     [SerializeField]
     [Tooltip("Reference to the Text to modify for the timer.")]
     Text text;
+    [SerializeField]
+    [Tooltip("The game summary window to activate.")]
+    GameObject gameSummary;
+    [SerializeField]
+    [Tooltip("How many seconds are in a single round.")]
+    float secondsPerRound;
 
     Timer timerRound;
 
     private void Start()
     {
-        timerRound = new Timer(180.0f, TimerRound_Finished, false);
+        timerRound = new Timer(secondsPerRound, TimerRound_Finished, false);
         timerRound.Run();
     }
 
@@ -26,8 +32,10 @@ public class RoundTimer : MonoBehaviour
         text.text = UtilString.DigitalTime(timerRound.GetSecondsRemaining());
     }
 
+    // Timer callback that marks the end of the game.
     private void TimerRound_Finished(float secondsOverflow)
     {
-        // End of game.
+        // Open the game summary window.
+        gameSummary.SetActive(true);
     }
 }

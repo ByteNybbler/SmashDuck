@@ -10,52 +10,63 @@ using UnityEngine;
 public static class Swizzle
 {
     // Returns the value of the given component of the given vector.
-    static float GetComponent(Vector4 vector, char component)
+    // The hyphen character will return currentValue.
+    // There are also characters for working with colors.
+    private static float GetComponent(Vector4 vector, char component,
+        float currentValue = 0.0f)
     {
         switch (component)
         {
             case 'x':
+            case 'r':
                 return vector.x;
             case 'y':
+            case 'g':
                 return vector.y;
             case 'z':
+            case 'b':
                 return vector.z;
             case 'w':
+            case 'a':
                 return vector.w;
+            case '-':
+                return currentValue;
             case '1':
                 return 1.0f;
+            case '0':
             default:
                 return 0.0f;
         }
     }
 
-    public static Vector2 Vec2(Vector4 vector, string components)
-    {
-        Vector2 result = Vector2.zero;
-        for (int i = 0; i < 2; ++i)
-        {
-            result[i] = GetComponent(vector, components[i]);
-        }
-        return result;
-    }
-
-    public static Vector3 Vec3(Vector4 vector, string components)
-    {
-        Vector3 result = Vector3.zero;
-        for (int i = 0; i < 3; ++i)
-        {
-            result[i] = GetComponent(vector, components[i]);
-        }
-        return result;
-    }
-
-    public static Vector4 Vec4(Vector4 vector, string components)
+    // Returns the components of a vector in the given swizzle order.
+    // vectorToChange is presumably the vector to be modified by this swizzle.
+    private static Vector4 ReadComponents(Vector4 vectorToRead, string components,
+        Vector4 vectorToChange, int iterations)
     {
         Vector4 result = Vector4.zero;
-        for (int i = 0; i < 4; ++i)
+        for (int i = 0; i < iterations; ++i)
         {
-            result[i] = GetComponent(vector, components[i]);
+            result[i] = GetComponent(vectorToRead, components[i], vectorToChange[i]);
         }
         return result;
+    }
+
+    public static Vector2 Vec2(Vector4 vectorToRead, string components,
+        Vector4 vectorToChange = new Vector4())
+    {
+        return ReadComponents(vectorToRead, components, vectorToChange, 2);
+    }
+
+    public static Vector3 Vec3(Vector4 vectorToRead, string components,
+        Vector4 vectorToChange = new Vector4())
+    {
+        return ReadComponents(vectorToRead, components, vectorToChange, 3);
+    }
+
+    public static Vector4 Vec4(Vector4 vectorToRead, string components,
+        Vector4 vectorToChange = new Vector4())
+    {
+        return ReadComponents(vectorToRead, components, vectorToChange, 4);
     }
 }
