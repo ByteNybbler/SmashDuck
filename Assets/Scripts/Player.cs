@@ -25,6 +25,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     [Tooltip("Reference to the rigidbody.")]
     Rigidbody2D rb;
+    [SerializeField]
+    [Tooltip("Reference to the weapon component.")]
+    Weapon weapon;
 
     Timer timerInvincibility;
 
@@ -57,10 +60,11 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Team componentOtherTeam = collision.GetComponent<Team>();
-        if (componentOtherTeam && !timerInvincibility.IsRunning())
+        if (componentOtherTeam)
         {
             int otherTeam = componentOtherTeam.Get();
-            if (otherTeam != team)
+            // Team -1 (stage hazards) can override invincibility frames.
+            if (otherTeam != team && (!timerInvincibility.IsRunning() || otherTeam == -1))
             {
                 // DIE!!!
                 Die(otherTeam);
@@ -83,6 +87,9 @@ public class Player : MonoBehaviour
         {
             scoreboard.AddScore(team, -1);
         }
+
+        // Make the player lose their weapon.
+        weapon.DiscardWeapon();
 
         // Run the invincibility timer.
         timerInvincibility.Run();

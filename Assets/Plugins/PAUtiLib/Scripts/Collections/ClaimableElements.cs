@@ -23,11 +23,23 @@ public class ClaimableElements<T>
         return unclaimed.Remove(value);
     }
 
+    // Adds the given element to the claimed list.
+    public void AddClaimed(T value)
+    {
+        claimed.Add(value);
+    }
+
+    // Removes the given element from the claimed list.
+    public bool RemoveClaimed(T value)
+    {
+        return claimed.Remove(value);
+    }
+
     // Claim the given element.
     // This will move it from the unclaimed list to the claimed list.
     public void Claim(T value)
     {
-        if (unclaimed.Remove(value))
+        if (RemoveUnclaimed(value))
         {
             claimed.Add(value);
         }
@@ -37,7 +49,7 @@ public class ClaimableElements<T>
     // This will move it from the claimed list to the unclaimed list.
     public void Unclaim(T value)
     {
-        if (claimed.Remove(value))
+        if (RemoveClaimed(value))
         {
             unclaimed.Add(value);
         }
@@ -61,11 +73,23 @@ public class ClaimableElements<T>
         return UtilRandom.GetRandomElement(unclaimed);
     }
 
+    // Returns a random element from the claimed list without removing it.
+    public T GetRandomElementClaimed()
+    {
+        return UtilRandom.GetRandomElement(claimed);
+    }
+
     // Returns a random collection of items from the unclaimed list without removing them.
     // The index of each item returned will be different.
     public List<T> GetRandomElementsUniqueUnclaimed(int count)
     {
         return UtilRandom.GetRandomElementsUnique(unclaimed, count);
+    }
+
+    // Same as the above method, but for the claim list.
+    public List<T> GetRandomElementsUniqueClaimed(int count)
+    {
+        return UtilRandom.GetRandomElementsUnique(claimed, count);
     }
 
     // Returns the element with the given index in the claimed list.
