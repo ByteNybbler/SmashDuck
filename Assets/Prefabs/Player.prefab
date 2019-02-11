@@ -28,6 +28,8 @@ GameObject:
   - component: {fileID: 8077259107847935933}
   - component: {fileID: 8077259107847935906}
   - component: {fileID: 8077259107847935932}
+  - component: {fileID: 8991190930705832543}
+  - component: {fileID: 2437331905164193652}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -190,6 +192,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreboard: {fileID: 0}
   team: 1
+  secondsOfInvincibility: 2.5
+  colorAccessor: {fileID: 8991190930705832543}
+  respawnPoint: {fileID: 0}
+  rb: {fileID: 8077259107847935916}
 --- !u!114 &8077259107847935909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distributor: {fileID: 8077259107847935910}
   acceleratorWalk: {fileID: 8077259107847935911}
+  inputName: Horizontal
 --- !u!114 &8077259107847935910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distributor: {fileID: 8077259107847935910}
   groundBasedJumper: {fileID: 8077259107847935914}
+  buttonJump: 119
 --- !u!114 &8077259107847935906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,6 +374,7 @@ MonoBehaviour:
   vius: {fileID: 8077259107847935918}
   gravity: {fileID: 8077259107847935917}
   variableJumpDampFactor: 0.5
+  buttonJump: 119
 --- !u!114 &8077259107847935932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,3 +389,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   variableJump: {fileID: 8077259107847935906}
   groundBasedJump: {fileID: 8077259107847935933}
+--- !u!114 &8991190930705832543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8077259107847935952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6895868f12827894ab342f065940ca5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &2437331905164193652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8077259107847935952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c38e0dccb2207428bd8d3bcf1de6e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  accessor: {fileID: 8991190930705832543}
+  connected: {fileID: 8077259107847935955}
+  useAsInitialValue: 1
+  leaveAlphaAlone: 0

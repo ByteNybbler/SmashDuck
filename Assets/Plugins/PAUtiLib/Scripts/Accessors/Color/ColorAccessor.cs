@@ -3,4 +3,17 @@
 
 using UnityEngine;
 
-public class ColorAccessor : SingleAccessor<Color> { }
+public class ColorAccessor : SingleAccessor<Color>
+{
+    public void SetAlpha(float alpha)
+    {
+        Color col = Get();
+        col.a = alpha;
+        Set(col);
+    }
+
+    public float GetAlpha()
+    {
+        return Get().a;
+    }
+}

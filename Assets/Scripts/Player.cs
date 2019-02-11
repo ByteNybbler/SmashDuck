@@ -13,6 +13,31 @@ public class Player : MonoBehaviour
     [SerializeField]
     [Tooltip("Which team this player is on.")]
     int team = 0;
+    [SerializeField]
+    [Tooltip("How many seconds of invincibility occur when the player first spawns.")]
+    float secondsOfInvincibility = 3.0f;
+    [SerializeField]
+    [Tooltip("Adjust the color when invincible.")]
+    ColorAccessor colorAccessor;
+    [SerializeField]
+    [Tooltip("Where the player respawns.")]
+    Transform respawnPoint;
+    [SerializeField]
+    [Tooltip("Reference to the rigidbody.")]
+    Rigidbody2D rb;
+
+    Timer timerInvincibility;
+
+    private void Start()
+    {
+        timerInvincibility = new Timer(secondsOfInvincibility,
+            TimerInvincibility_Finished, false, true);
+    }
+
+    private void TimerInvincibility_Finished(float secondsOverflow)
+    {
+        colorAccessor.SetAlpha(1.0f);
+    }
 
     public void SetTeam(int team)
     {
@@ -24,10 +49,15 @@ public class Player : MonoBehaviour
         return team;
     }
 
+    private void FixedUpdate()
+    {
+        timerInvincibility.Tick(Time.deltaTime);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Team componentOtherTeam = collision.GetComponent<Team>();
-        if (componentOtherTeam)
+        if (componentOtherTeam && !timerInvincibility.IsRunning())
         {
             int otherTeam = componentOtherTeam.Get();
             if (otherTeam != team)
@@ -54,7 +84,12 @@ public class Player : MonoBehaviour
             scoreboard.AddScore(team, -1);
         }
 
+        // Run the invincibility timer.
+        timerInvincibility.Run();
+        colorAccessor.SetAlpha(0.5f);
+
         // Respawn.
-        transform.position = Vector3.zero;
+        rb.velocity = Vector2.zero;
+        transform.position = respawnPoint.position;
     }
 }
