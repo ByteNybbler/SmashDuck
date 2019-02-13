@@ -837,7 +837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &794272715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1009,6 +1009,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerOrange
       objectReference: {fileID: 0}
+    - target: {fileID: 8077259107847935905, guid: f2ebccd128a4b814bb93f5494cc94848,
+        type: 3}
+      propertyPath: inputName
+      value: Horizontal2
+      objectReference: {fileID: 0}
     - target: {fileID: 8077259107847935954, guid: f2ebccd128a4b814bb93f5494cc94848,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1090,11 +1095,6 @@ PrefabInstance:
       propertyPath: respawnPoint
       value: 
       objectReference: {fileID: 621630234}
-    - target: {fileID: 8077259107847935905, guid: f2ebccd128a4b814bb93f5494cc94848,
-        type: 3}
-      propertyPath: inputName
-      value: Horizontal2
-      objectReference: {fileID: 0}
     - target: {fileID: 8077259107847935910, guid: f2ebccd128a4b814bb93f5494cc94848,
         type: 3}
       propertyPath: immediatelySubscribeToManager
@@ -1379,7 +1379,7 @@ Transform:
   m_GameObject: {fileID: 1019082922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8

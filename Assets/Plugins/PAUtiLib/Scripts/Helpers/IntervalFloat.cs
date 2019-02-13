@@ -32,22 +32,14 @@ public class IntervalFloat
     {
         return new IntervalFloat(start, end);
     }
-    public static IntervalFloat FromCenterRadius(float center, float radius)
+    public static IntervalFloat FromRadius(float radius, float center = 0.0f)
     {
         return new IntervalFloat(center - radius, center + radius);
     }
     // This method can also be used to define an angle centered at a direction.
-    public static IntervalFloat FromCenterDiameter(float center, float diameter)
+    public static IntervalFloat FromDiameter(float diameter, float center = 0.0f)
     {
-        return FromCenterRadius(center, diameter * 0.5f);
-    }
-    public static IntervalFloat FromRadius(float radius)
-    {
-        return FromCenterRadius(0.0f, radius);
-    }
-    public static IntervalFloat FromDiameter(float diameter)
-    {
-        return FromRadius(diameter * 0.5f);
+        return FromRadius(diameter * 0.5f, center);
     }
 
     // Returns the start of the interval.

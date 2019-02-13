@@ -37,7 +37,6 @@ public class Weapon : MonoBehaviour
     GameObject heldWeapon;
 
     Timer timerBetweenBullets;
-    IntervalFloat intervalSpread;
 
     // Whether this player has a weapon or not.
     bool hasWeapon = false;
@@ -47,7 +46,6 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         timerBetweenBullets = new Timer(secondsBetweenBullets, TimerBetweenBullets_Finished);
-        intervalSpread = IntervalFloat.FromDiameter(spreadAngle);
         SetHasWeapon(false);
     }
 
@@ -115,8 +113,8 @@ public class Weapon : MonoBehaviour
         projectile.Set(team);
 
         // Set the projectile's direction.
-        float direction = intervalSpread.GetRandom();
-        Vector2 heading = Angle.FromDegrees(direction).GetHeadingVector();
+        Vector2 heading = Angle.FromRandomDiameterDegrees(spreadAngle).GetHeadingVector();
+        //Vector2 heading = spreadAngle.GetRandom().GetHeadingVector();
 
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         rb.velocity = heading * UtilRandom.Sign() * projectileSpeed;

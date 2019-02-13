@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeScale: {fileID: 0}
   vius: {fileID: 8077259107847935918}
-  acceleration: 8
+  acceleration: 12
   gravityScale: 1
 --- !u!114 &8077259107847935918
 MonoBehaviour:
@@ -361,7 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gba: {fileID: 8077259107847935908}
-  acceleration: 10
+  acceleration: 16
 --- !u!114 &8077259107847935908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,8 +377,8 @@ MonoBehaviour:
   timeScale: {fileID: 0}
   groundChecker: {fileID: 8077259107847935915}
   vius: {fileID: 8077259107847935918}
-  groundDeceleration: 6
-  maxHorizontalSpeed: 12
+  groundDeceleration: 16
+  maxHorizontalSpeed: 8
 --- !u!114 &8077259107847935904
 MonoBehaviour:
   m_ObjectHideFlags: 0

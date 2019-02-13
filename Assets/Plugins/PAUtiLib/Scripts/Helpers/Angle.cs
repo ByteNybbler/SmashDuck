@@ -55,18 +55,71 @@ public class Angle : IDeepCopyable<Angle>
         return new Angle(radians * Mathf.Rad2Deg);
     }
     // Returns a random angle from the given range.
-    public static Angle FromDegreesRandom(float start = 0.0f, float end = 360.0f)
+    // If only one argument is specified, the start of the range will be zero.
+    // If no arguments are specified, the 0-360 degree range will be used.
+    public static Angle FromRandomDegrees(float start, float end)
     {
         return Angle.FromDegrees(Random.Range(start, end));
     }
-    public static Angle FromRadiansRandom(float start = 0.0f, float end = TWO_PI)
+    public static Angle FromRandomDegrees(float end = 360.0f)
+    {
+        return Angle.FromRandomDegrees(0.0f, end);
+    }
+    public static Angle FromRandomRadians(float start, float end)
     {
         return Angle.FromRadians(Random.Range(start, end));
     }
-    // Returns any random angle from 0 to 360 degrees.
+    public static Angle FromRandomRadians(float end = TWO_PI)
+    {
+        return Angle.FromRandomRadians(0.0f, end);
+    }
+    public static Angle FromRandom(Angle start, Angle end)
+    {
+        return Angle.FromRandomDegrees(start.GetDegrees(), end.GetDegrees());
+    }
+    public static Angle FromRandom(Angle end)
+    {
+        return Angle.FromRandomDegrees(0.0f, end.GetDegrees());
+    }
     public static Angle FromRandom()
     {
-        return Angle.FromDegreesRandom();
+        return Angle.FromRandomDegrees();
+    }
+    // Returns a random angle measure within the given interval.
+    public static Angle FromRandomDegrees(IntervalFloat interval)
+    {
+        return Angle.FromDegrees(interval.GetRandom());
+    }
+    public static Angle FromRandomRadians(IntervalFloat interval)
+    {
+        return Angle.FromRadians(interval.GetRandom());
+    }
+    // In this case, the radius of the angle refers to the measure between the
+    // angle's center and the angle's end. In other words, the radius is half
+    // of the angle's total measure.
+    public static Angle FromRandomRadius(Angle radius, Angle center = default)
+    {
+        return Angle.FromRandom(center - radius, center + radius);
+    }
+    public static Angle FromRandomDiameter(Angle diameter, Angle center = default)
+    {
+        return Angle.FromRandomRadius(diameter * 0.5f, center);
+    }
+    public static Angle FromRandomRadiusDegrees(float radius, float center = 0.0f)
+    {
+        return Angle.FromRandomDegrees(-radius, radius).AddDegrees(center);
+    }
+    public static Angle FromRandomDiameterDegrees(float diameter, float center = 0.0f)
+    {
+        return Angle.FromRandomRadiusDegrees(diameter * 0.5f, center);
+    }
+    public static Angle FromRandomRadiusRadians(float radius, float center = 0.0f)
+    {
+        return Angle.FromRandomRadiusDegrees(radius * Mathf.Rad2Deg, center * Mathf.Rad2Deg);
+    }
+    public static Angle FromRandomDiameterRadians(float diameter, float center = 0.0f)
+    {
+        return Angle.FromRandomRadiusRadians(diameter * 0.5f, center);
     }
     // Constructs an angle from the given heading vector.
     public static Angle FromHeadingVector(Vector2 heading)
@@ -96,6 +149,16 @@ public class Angle : IDeepCopyable<Angle>
     {
         return Angle.FromRadians(linearVelocity / radius);
     }
+    // Returns the angle between two quaternions.
+    public static Angle FromQuaternions(Quaternion start, Quaternion end)
+    {
+        return Angle.FromDegrees(Quaternion.Angle(start, end));
+    }
+    // Returns the angle between the given quaternion and the quaternion identity.
+    public static Angle FromQuaternion(Quaternion quat)
+    {
+        return Angle.FromQuaternions(Quaternion.identity, quat);
+    }
     // Returns the signed angle that faces the end point from the start point.
     public static Angle FromPoint(Vector2 startPoint, Vector2 endPoint)
     {
@@ -116,7 +179,7 @@ public class Angle : IDeepCopyable<Angle>
     {
         return new Angle(degrees);
     }
-    public static Angle DeepCopy(Angle otherAngle)
+    public static Angle FromDeepCopy(Angle otherAngle)
     {
         return otherAngle.DeepCopy();
     }
@@ -178,8 +241,8 @@ public class Angle : IDeepCopyable<Angle>
     // The range will always be 360 degrees in size.
     public Angle ToCoterminal(Angle centerOfTheInterval)
     {
-        IntervalFloat interval = IntervalFloat.FromCenterRadius(
-            centerOfTheInterval.GetDegrees(), 180.0f);
+        IntervalFloat interval = IntervalFloat.FromRadius(
+            180.0f, centerOfTheInterval.GetDegrees());
         degrees = interval.Remainder(degrees);
         return this;
     }
@@ -200,6 +263,12 @@ public class Angle : IDeepCopyable<Angle>
     public float GetLinearVelocity(float radius)
     {
         return GetRadians() * radius;
+    }
+    
+    // Returns a random angle within the given angle.
+    public Angle GetRandom(Angle center = default)
+    {
+        return Angle.FromRandomDiameter(this, center);
     }
 
     // Adds this many degrees to the angle.
