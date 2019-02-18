@@ -69,8 +69,11 @@ public class Weapon : MonoBehaviour
     {
         if (collision.CompareTag("Item") && !hasWeapon)
         {
-            weaponManager.Claim(collision.gameObject);
+            //weaponManager.Claim(collision.gameObject);
             SetHasWeapon(true);
+
+            Destroy(collision.gameObject);
+            //collision.GetComponent<SpawnedByGridElement>().
         }
     }
 
@@ -85,7 +88,7 @@ public class Weapon : MonoBehaviour
         if (hasWeapon)
         {
             SetHasWeapon(false);
-            weaponManager.SpawnNewWeapon();
+            //weaponManager.SpawnNewWeapon();
             return true;
         }
         return false;

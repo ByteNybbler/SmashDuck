@@ -94,14 +94,23 @@ public class Angle : IDeepCopyable<Angle>
     {
         return Angle.FromRadians(interval.GetRandom());
     }
+    // xzx
+    //const Angle ZORO = new Angle(0.0f);
+    //const Angle ZERO = Angle.FromDegrees(0.0f);
     // In this case, the radius of the angle refers to the measure between the
     // angle's center and the angle's end. In other words, the radius is half
     // of the angle's total measure.
-    public static Angle FromRandomRadius(Angle radius, Angle center = default)
+    public static Angle FromRandomRadius(Angle radius, Angle center)
     {
         return Angle.FromRandom(center - radius, center + radius);
     }
-    public static Angle FromRandomDiameter(Angle diameter, Angle center = default)
+    /*
+    public static Angle FromRandomRadius(Angle radius)
+    {
+        return Angle.FromRandomRadius(radius, )
+    }
+    */
+    public static Angle FromRandomDiameter(Angle diameter, Angle center)
     {
         return Angle.FromRandomRadius(diameter * 0.5f, center);
     }
@@ -265,7 +274,7 @@ public class Angle : IDeepCopyable<Angle>
         return GetRadians() * radius;
     }
     
-    // Returns a random angle within the given angle.
+    // Returns a random angle within this angle.
     public Angle GetRandom(Angle center = default)
     {
         return Angle.FromRandomDiameter(this, center);

@@ -85,7 +85,10 @@ public class Player : MonoBehaviour
         // Killed by falling off the stage!
         if (killedByTeam == -1)
         {
-            scoreboard.AddScore(team, -1);
+            int otherTeam = (team == 1) ? 2 : 1;
+            scoreboard.AddScore(otherTeam, 1);
+
+            //scoreboard.AddScore(team, -1);
         }
 
         // Make the player lose their weapon.
