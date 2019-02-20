@@ -17,6 +17,11 @@ public class Damage : MonoBehaviour
         return damage;
     }
 
+    public void Set(int newDamage)
+    {
+        damage = newDamage;
+    }
+
     public void Add(int amount)
     {
         damage += amount;

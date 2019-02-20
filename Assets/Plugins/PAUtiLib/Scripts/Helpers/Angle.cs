@@ -275,7 +275,7 @@ public class Angle : IDeepCopyable<Angle>
     }
     
     // Returns a random angle within this angle.
-    public Angle GetRandom(Angle center = default)
+    public Angle GetRandom(Angle center)
     {
         return Angle.FromRandomDiameter(this, center);
     }
