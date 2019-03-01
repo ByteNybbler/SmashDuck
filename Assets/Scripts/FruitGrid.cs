@@ -24,10 +24,10 @@ public class FruitGrid : MonoBehaviour
 
     [SerializeField]
     [Tooltip("The width of the grid.")]
-    readonly int width = 8;
+    int width = 8;
     [SerializeField]
     [Tooltip("The height of the grid.")]
-    readonly int height = 8;
+    int height = 8;
 
     private void Start()
     {
