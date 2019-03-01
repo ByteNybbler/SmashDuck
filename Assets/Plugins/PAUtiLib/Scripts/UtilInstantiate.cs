@@ -13,7 +13,7 @@ public static class UtilInstantiate
     // T is a component type that is a member of the prefab.
     // This component type will be returned in a List containing this
     // component for each generated cell.
-    public static List<T> GridOfRectTransforms<T>(int gridWidth, int gridHeight,
+    public static List2<T> GridOfRectTransforms<T>(int gridWidth, int gridHeight,
         GameObject cellPrefab, bool cellsAreSquare,
         RectTransform gridContainer, float cellScale = 1.0f,
         Action<T> callback = null)
@@ -43,9 +43,10 @@ public static class UtilInstantiate
         // Instantiate the List that will be returned by this method.
         List<T> result = new List<T>();
 
-        for (int column = 0; column < gridWidth; ++column)
+        // Instantiate the grid in row-major order, moving right then down.
+        for (int row = 0; row < gridHeight; ++row)
         {
-            for (int row = 0; row < gridHeight; ++row)
+            for (int column = 0; column < gridWidth; ++column)
             {
                 // Instantiate a cell using the cell prefab.
                 GameObject cellObj = GameObject.Instantiate(cellPrefab, gridContainer);
@@ -72,6 +73,7 @@ public static class UtilInstantiate
             }
         }
 
-        return result;
+        return new List2<T>(result,
+            new MatrixAccessor(gridWidth, gridHeight, CoordinateOrder.RightThenUp, false));
     }
 }

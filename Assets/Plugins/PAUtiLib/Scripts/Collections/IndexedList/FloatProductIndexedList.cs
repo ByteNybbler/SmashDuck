@@ -27,7 +27,7 @@ public class FloatProductIndexedList : MonoIndexedList<float>
 
     private void ListModified(float[] elements)
     {
-        product = UtilMath.Product(elements);
+        product = UtilCollection.Product(elements);
         OnProductUpdated(product);
     }
 

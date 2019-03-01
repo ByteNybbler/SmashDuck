@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GridElement : MonoBehaviour
+public class FruitGridElement : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("String mapped to GameObject.")]

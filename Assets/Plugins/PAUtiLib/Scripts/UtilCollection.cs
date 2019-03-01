@@ -30,4 +30,44 @@ public static class UtilCollection
         key = dict.FirstOrDefault(x => UtilGeneric.IsEqualTo(x.Value, value)).Key;
         return dict.ContainsValue(value);
     }
+
+    // Returns the sum of every value in the collection.
+    public static float Sum(this IEnumerable<float> values)
+    {
+        float result = 0.0f;
+        foreach (float val in values)
+        {
+            result += val;
+        }
+        return result;
+    }
+    public static int Sum(this IEnumerable<int> values)
+    {
+        int result = 0;
+        foreach (int val in values)
+        {
+            result += val;
+        }
+        return result;
+    }
+
+    // Returns the product of every value in the collection.
+    public static float Product(this IEnumerable<float> values)
+    {
+        float result = 1.0f;
+        foreach (float val in values)
+        {
+            result *= val;
+        }
+        return result;
+    }
+    public static int Product(this IEnumerable<int> values)
+    {
+        int result = 1;
+        foreach (int val in values)
+        {
+            result *= val;
+        }
+        return result;
+    }
 }

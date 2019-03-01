@@ -47,24 +47,4 @@ public class UtilMath
     {
         return boolean ? valueTrue : valueFalse;
     }
-
-    // Returns the product of several values.
-    public static float Product(params float[] values)
-    {
-        float result = 1.0f;
-        foreach (float val in values)
-        {
-            result *= val;
-        }
-        return result;
-    }
-    public static int Product(params int[] values)
-    {
-        int result = 1;
-        foreach (int val in values)
-        {
-            result *= val;
-        }
-        return result;
-    }
 }

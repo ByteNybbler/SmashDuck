@@ -40,7 +40,7 @@ public class GameSummary : MonoBehaviour
             }
             else
             {
-                textWinner.text = "Orange wins!";
+                textWinner.text = "Lemon wins!";
             }
         }
     }

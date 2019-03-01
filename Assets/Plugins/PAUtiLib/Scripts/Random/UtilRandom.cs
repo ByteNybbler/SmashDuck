@@ -8,14 +8,14 @@ using UnityEngine;
 public static class UtilRandom
 {
     // Returns a random element from the given collection.
-    public static T GetRandomElement<T>(IList<T> collection)
+    public static T GetRandomElement<T>(this IList<T> collection)
     {
         return collection[Random.Range(0, collection.Count)];
     }
 
     // Returns the given number of random unique elements from the given collection.
     // In this case, "unique" refers to having a unique index in the given collection.
-    public static List<T> GetRandomElementsUnique<T>(IList<T> collection, int count)
+    public static List<T> GetRandomElementsUnique<T>(this IList<T> collection, int count)
     {
         List<int> indices = UniqueIntegersShuffled(count, 0, collection.Count);
         List<T> result = new List<T>(count);
@@ -27,7 +27,7 @@ public static class UtilRandom
     }
 
     // Randomly shuffles the given collection in place.
-    public static void Shuffle<T>(IList<T> collection)
+    public static void Shuffle<T>(this IList<T> collection)
     {
         // The following is an implementation of the Fisher-Yates shuffle.
         int finalIndex = collection.Count;

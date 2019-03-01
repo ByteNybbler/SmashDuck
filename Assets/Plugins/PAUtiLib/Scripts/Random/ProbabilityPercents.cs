@@ -1,12 +1,13 @@
 ﻿// Author(s): Paul Calande
-// Class for returning one result from a set by random chance.
-// T is the result type.
+// Class for returning one result (i.e. possibility) from a set by random chance.
+// Adding a new result to the set will only reduce the probability of the default result.
+// The type parameter T is the type of the result.
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Probability<T> : IDeepCopyable<Probability<T>>
+public class ProbabilityPercents<T> : IDeepCopyable<ProbabilityPercents<T>>
 {
     // The dictionary of results and their associated chances.
     // Chances are measured in percent: 0.00 (0%) - 1.00 (100%).
@@ -15,14 +16,14 @@ public class Probability<T> : IDeepCopyable<Probability<T>>
     // This is the result returned when no other result is chosen.
     T resultDefault;
 
-    public Probability(T resultDefault)
+    public ProbabilityPercents(T resultDefault)
     {
         this.resultDefault = resultDefault;
     }
 
-    public Probability<T> DeepCopy()
+    public ProbabilityPercents<T> DeepCopy()
     {
-        Probability<T> result = new Probability<T>(resultDefault);
+        ProbabilityPercents<T> result = new ProbabilityPercents<T>(resultDefault);
         result.chances = new Dictionary<T, float>(chances);
         return result;
     }
@@ -50,13 +51,6 @@ public class Probability<T> : IDeepCopyable<Probability<T>>
     public void SetDefaultResult(T val)
     {
         resultDefault = val;
-    }
-
-    // Sets the chance of the given result occurring.
-    public void SetChance(T result, float chance)
-    {
-        chances[result] = chance;
-        CheckForPercentOverflow();
     }
 
     // Returns true if the given result is the default result.
@@ -91,6 +85,13 @@ public class Probability<T> : IDeepCopyable<Probability<T>>
         // Clamp the returned result to 0 if it's negative.
         defaultChance = Mathf.Max(0.0f, defaultChance);
         return defaultChance;
+    }
+
+    // Sets the chance of the given result occurring.
+    public void SetChance(T result, float chance)
+    {
+        chances[result] = chance;
+        CheckForPercentOverflow();
     }
 
     // Gets the chance of the given result occurring, taking the default result into account.

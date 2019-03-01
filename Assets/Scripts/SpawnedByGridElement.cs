@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class SpawnedByGridElement : MonoBehaviour
 {
-    GridElement owner;
+    FruitGridElement owner;
 
-    public void SetOwner(GridElement owner)
+    public void SetOwner(FruitGridElement owner)
     {
         this.owner = owner;
     }

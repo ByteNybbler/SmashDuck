@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TwitchLib.Client.Events;
 
-public class Grid : MonoBehaviour
+public class FruitGrid : MonoBehaviour
 {
     [SerializeField]
     [Tooltip("The prefab to use for a grid element.")]
@@ -20,29 +20,46 @@ public class Grid : MonoBehaviour
     [Tooltip("Reference to the Twitch client.")]
     TwitchClient client;
 
-    List<GridElement> elements;
+    List2<FruitGridElement> elements;
 
-    int width = 8;
-    int height = 8;
+    [SerializeField]
+    [Tooltip("The width of the grid.")]
+    readonly int width = 8;
+    [SerializeField]
+    [Tooltip("The height of the grid.")]
+    readonly int height = 8;
 
     private void Start()
     {
-        elements = UtilInstantiate.GridOfRectTransforms<GridElement>(
+        elements = UtilInstantiate.GridOfRectTransforms<FruitGridElement>(
             width, height, prefabCell, true, gridContainer);
 
         client.ClientCommandReceived += ClientCommandReceived;
     }
 
-    public void Spawn(string objectName, int row, int column, string userName)
+    private FruitGridElement GetElement(int x, int y)
     {
-        GridElement element = elements[width * row + column];
+        return elements.At(x, y);
+            ///[width * row + column];
+    }
+
+    public void Spawn(string objectName, int x, int y, string userName)
+    {
+        FruitGridElement element = GetElement(x, y);
         element.Spawn(objectName, userName);
     }
 
-    public void Clear(int row, int column, string userName)
+    public void Clear(int x, int y, string userName)
     {
-        GridElement element = elements[width * row + column];
+        FruitGridElement element = GetElement(x, y);
         element.Clear(userName);
+    }
+
+    private bool CommandGetCoordinates(List<string> commandArgs, out int x, out int y)
+    {
+        int.TryParse(commandArgs[0], out x);
+        int.TryParse(commandArgs[1], out y);
+        return elements.IsWithinMatrix(x, y);
     }
 
     private void ClientCommandReceived(object sender, OnChatCommandReceivedArgs e)
@@ -61,12 +78,20 @@ public class Grid : MonoBehaviour
                 if (e.Command.ArgumentsAsList.Count >= 2)
                 {
                     //string objectName = e.Command.ArgumentsAsList[0];
-                    int row = -1, col = -1;
-                    int.TryParse(e.Command.ArgumentsAsList[0], out col);
-                    int.TryParse(e.Command.ArgumentsAsList[1], out row);
-                    if (row >= 0 && row < height && col >= 0 && col < height)
+                    //int x = -1, y = -1;
+                    /*
+                    int.TryParse(e.Command.ArgumentsAsList[0], out int x);
+                    int.TryParse(e.Command.ArgumentsAsList[1], out int y);
+                    if (elements.IsWithinMatrix(x, y))
                     {
-                        Clear(row, col, sourceName);
+                        Clear(x, y, sourceName);
+                        return;
+                    }
+                    */
+
+                    if (CommandGetCoordinates(e.Command.ArgumentsAsList, out int x, out int y))
+                    {
+                        Clear(x, y, sourceName);
                         return;
                     }
                 }
@@ -77,6 +102,7 @@ public class Grid : MonoBehaviour
                 string objectName = command;
                 if (e.Command.ArgumentsAsList.Count >= 2)
                 {
+                    /*
                     //string objectName = e.Command.ArgumentsAsList[0];
                     int row = -1, col = -1;
                     int.TryParse(e.Command.ArgumentsAsList[0], out col);
@@ -84,6 +110,13 @@ public class Grid : MonoBehaviour
                     if (row >= 0 && row < height && col >= 0 && col < height)
                     {
                         Spawn(objectName, row, col, sourceName);
+                        return;
+                    }
+                    */
+
+                    if (CommandGetCoordinates(e.Command.ArgumentsAsList, out int x, out int y))
+                    {
+                        Spawn(objectName, x, y, sourceName);
                         return;
                     }
                 }
