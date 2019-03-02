@@ -30,9 +30,22 @@ public class List2<T>
         return collection[accessor.GetIndexAt(coord1, coord2)];
     }
 
+    public T At(int index)
+    {
+        return collection[index];
+    }
+
     public bool IsWithinMatrix(int coord1, int coord2)
     {
         return accessor.IsWithinMatrix(coord1, coord2);
+    }
+    
+    public IEnumerable<T> SelectRange(int start1, int start2, int end1, int end2)
+    {
+        foreach (int index in accessor.SelectRange(start1, start2, end1, end2))
+        {
+            yield return collection[index];
+        }
     }
 
     /*

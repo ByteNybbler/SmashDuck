@@ -2,6 +2,8 @@
 // Timer class that can be used to simulate periodic or otherwise time-based behavior.
 // The secondsCurrent counter starts at 0 and counts upwards to the target.
 
+using UnityEngine;
+
 public class Timer : ITimer
 {
     // Invoked every time the timer finishes a loop.
@@ -40,6 +42,13 @@ public class Timer : ITimer
         bool clearOnRun = false, StartedHandler StartedCallback = null,
         StoppedHandler StoppedCallback = null, TickedHandler TickedCallback = null)
     {
+        if (seconds <= 0.0f)
+        {
+            Debug.LogError($"Prevented instantiation of a timer that loops every {seconds}"
+                + " seconds. Make sure timers run for longer than 0 seconds. " +
+                "The timer has been set to loop every second to prevent an infinite loop.");
+            seconds = 1.0f;
+        }
         this.secondsTarget = seconds;
         this.Finished = FinishedCallback;
         this.loop = loop;

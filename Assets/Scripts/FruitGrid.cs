@@ -29,18 +29,52 @@ public class FruitGrid : MonoBehaviour
     [Tooltip("The height of the grid.")]
     int height = 8;
 
+    [SerializeField]
+    [Tooltip("Seconds that the simulated viewer AI will wait after each viewer command.")]
+    float secondsSVAI;
+    [SerializeField]
+    [Tooltip("How high a player can jump in terms of cells of the grid.")]
+    int jumpHeightInCells = 2;
+
+    // Timer for the simulated viewer AI (also known as SVAI).
+    // When this timer runs out, SVAI will run a fake viewer command.
+    Timer timerSVAI;
+    // The name that the SVAI uses when running commands.
+    const string botName = "Bot";
+
     private void Start()
     {
         elements = UtilInstantiate.GridOfRectTransforms<FruitGridElement>(
             width, height, prefabCell, true, gridContainer);
 
+        timerSVAI = new Timer(secondsSVAI, TimerSVAI_Finished);
+        timerSVAI.Run();
+        // Make the SVAI place an object when the level first loads.
+        TimerSVAI_Finished(0.0f);
+
         client.ClientCommandReceived += ClientCommandReceived;
+    }
+
+    private void Update()
+    {
+        timerSVAI.Tick(Time.deltaTime);
+    }
+
+    private void TimerSVAI_Finished(float secondsOverflow)
+    {
+        // Place a random tile.
     }
 
     private FruitGridElement GetElement(int x, int y)
     {
         return elements.At(x, y);
-            ///[width * row + column];
+    }
+
+    // This method runs when a player successfully enters a Twitch chat command.
+    private void PlayerDidCommand()
+    {
+        // Reset the SVAI timer.
+        timerSVAI.Clear();
     }
 
     public void Spawn(string objectName, int x, int y, string userName)
@@ -59,6 +93,9 @@ public class FruitGrid : MonoBehaviour
     {
         int.TryParse(commandArgs[0], out x);
         int.TryParse(commandArgs[1], out y);
+        // Compensate for the lack of zero-indexing.
+        x -= 1;
+        y -= 1;
         return elements.IsWithinMatrix(x, y);
     }
 
@@ -77,21 +114,10 @@ public class FruitGrid : MonoBehaviour
                 // Erase the tile at the given coordinates.
                 if (e.Command.ArgumentsAsList.Count >= 2)
                 {
-                    //string objectName = e.Command.ArgumentsAsList[0];
-                    //int x = -1, y = -1;
-                    /*
-                    int.TryParse(e.Command.ArgumentsAsList[0], out int x);
-                    int.TryParse(e.Command.ArgumentsAsList[1], out int y);
-                    if (elements.IsWithinMatrix(x, y))
-                    {
-                        Clear(x, y, sourceName);
-                        return;
-                    }
-                    */
-
                     if (CommandGetCoordinates(e.Command.ArgumentsAsList, out int x, out int y))
                     {
                         Clear(x, y, sourceName);
+                        PlayerDidCommand();
                         return;
                     }
                 }
@@ -102,21 +128,10 @@ public class FruitGrid : MonoBehaviour
                 string objectName = command;
                 if (e.Command.ArgumentsAsList.Count >= 2)
                 {
-                    /*
-                    //string objectName = e.Command.ArgumentsAsList[0];
-                    int row = -1, col = -1;
-                    int.TryParse(e.Command.ArgumentsAsList[0], out col);
-                    int.TryParse(e.Command.ArgumentsAsList[1], out row);
-                    if (row >= 0 && row < height && col >= 0 && col < height)
-                    {
-                        Spawn(objectName, row, col, sourceName);
-                        return;
-                    }
-                    */
-
                     if (CommandGetCoordinates(e.Command.ArgumentsAsList, out int x, out int y))
                     {
                         Spawn(objectName, x, y, sourceName);
+                        PlayerDidCommand();
                         return;
                     }
                 }
