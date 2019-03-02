@@ -74,6 +74,6 @@ public static class UtilInstantiate
         }
 
         return new List2<T>(result,
-            new MatrixAccessor(gridWidth, gridHeight, CoordinateOrder.RightThenUp, false));
+            new MatrixAccessor(gridWidth, gridHeight, CoordinateOrder2D.RightThenUp, false));
     }
 }

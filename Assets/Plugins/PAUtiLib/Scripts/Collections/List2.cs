@@ -8,21 +8,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-// Author(s): Paul Calande
-// A useful enum for defining the directions represented by a coordinate pair.
-
-public enum CoordinateOrder
-{
-    RightThenDown,
-    RightThenUp,
-    LeftThenDown,
-    LeftThenUp,
-    UpThenRight,
-    UpThenLeft,
-    DownThenRight,
-    DownThenLeft
-}
-
 public class List2<T>
 {
     // The accessor to the list.
