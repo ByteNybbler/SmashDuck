@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TwitchLib.Client.Events;
+using System.Linq;
 
 public class FruitGrid : MonoBehaviour
 {
@@ -41,11 +42,18 @@ public class FruitGrid : MonoBehaviour
     Timer timerSVAI;
     // The name that the SVAI uses when running commands.
     const string botName = "Bot";
+    // The possible actions that SVAI can perform.
+    ProbabilityPercents<System.Action<FruitGridElement>> svaiActions;
 
     private void Start()
     {
         elements = UtilInstantiate.GridOfRectTransforms<FruitGridElement>(
             width, height, prefabCell, true, gridContainer);
+
+        svaiActions = new ProbabilityPercents<System.Action<FruitGridElement>>(null);
+        svaiActions.SetChance((ge) => ge.Spawn("gun", botName), 0.5f);
+        svaiActions.SetChance((ge) => ge.Spawn("wall", botName), 0.5f);
+        //svaiActions.SetChance((ge) => ge.Clear(botName), 0.5f);
 
         timerSVAI = new Timer(secondsSVAI, TimerSVAI_Finished);
         timerSVAI.Run();
@@ -63,6 +71,33 @@ public class FruitGrid : MonoBehaviour
     private void TimerSVAI_Finished(float secondsOverflow)
     {
         // Place a random tile.
+        FruitGridElement target =
+            elements.SelectBandsUsingCoord2(0, 2).ToArray().GetRandomElement();
+        if (target.IsOccupied())
+        {
+            target.Clear(botName);
+        }
+        else
+        {
+            svaiActions.Roll()(target);
+        }
+
+        /*
+        if (UtilRandom.Bool(0.5f))
+        {
+            target.Spawn("gun", botName);
+        }
+        else
+        {
+            target.Spawn("wall", botName);
+        }
+        */
+        /*
+        foreach (FruitGridElement elem in elements.SelectBandsUsingCoord2(0, 2))
+        {
+
+        }
+        */
     }
 
     private FruitGridElement GetElement(int x, int y)

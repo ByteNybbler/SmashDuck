@@ -203,8 +203,17 @@ public class MatrixAccessor
         height = temp;
     }
 
-    // Enumerate across the rectangle bounded by the given coordinates.
     // TODO: Specify the order of the iteration too, utilizing CoordinateOrder2D?
+    public IEnumerable<int> SelectAll()
+    {
+        for (int i = 0; i < width * height; ++i)
+        {
+            yield return i;
+        }
+    }
+
+    // Enumerate across the rectangle bounded by the given coordinates.
+    // TODO: Actually make it loop properly.
     public IEnumerable<int> SelectRange(int start1, int start2, int end1, int end2)
     {
         int startIndex = GetIndexAt(start1, start2);
@@ -222,7 +231,7 @@ public class MatrixAccessor
     {
         return SelectRange(start, GetStartOffsetCoord2(), end, GetEndOffsetCoord2());
     }
-    public IEnumerable<int> SelectBandsUsingCoord1(int coord1)
+    public IEnumerable<int> SelectBandUsingCoord1(int coord1)
     {
         return SelectBandsUsingCoord1(coord1, coord1);
     }
@@ -232,7 +241,7 @@ public class MatrixAccessor
     {
         return SelectRange(GetStartOffsetCoord1(), start, GetEndOffsetCoord1(), end);
     }
-    public IEnumerable<int> SelectBandsUsingCoord2(int coord2)
+    public IEnumerable<int> SelectBandUsingCoord2(int coord2)
     {
         return SelectBandsUsingCoord2(coord2, coord2);
     }

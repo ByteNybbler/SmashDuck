@@ -63,4 +63,9 @@ public class FruitGridElement : MonoBehaviour
             CreditUser(userName);
         }
     }
+
+    public bool IsOccupied()
+    {
+        return occupied;
+    }
 }

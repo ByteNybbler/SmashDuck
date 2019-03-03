@@ -40,12 +40,42 @@ public class List2<T>
         return accessor.IsWithinMatrix(coord1, coord2);
     }
     
-    public IEnumerable<T> SelectRange(int start1, int start2, int end1, int end2)
+    private IEnumerable<T> Select(IEnumerable<int> indices)
     {
-        foreach (int index in accessor.SelectRange(start1, start2, end1, end2))
+        foreach (int index in indices)
         {
             yield return collection[index];
         }
+    }
+
+    public IEnumerable<T> SelectAll()
+    {
+        return Select(accessor.SelectAll());
+    }
+
+    public IEnumerable<T> SelectRange(int start1, int start2, int end1, int end2)
+    {
+        return Select(accessor.SelectRange(start1, start2, end1, end2));
+    }
+
+    // Enumerate across the given band defined by the first coordinate.
+    public IEnumerable<T> SelectBandsUsingCoord1(int start, int end)
+    {
+        return Select(accessor.SelectBandsUsingCoord1(start, end));
+    }
+    public IEnumerable<T> SelectBandUsingCoord1(int coord1)
+    {
+        return Select(accessor.SelectBandUsingCoord1(coord1));
+    }
+
+    // Enumerate across the given band defined by the second coordinate.
+    public IEnumerable<T> SelectBandsUsingCoord2(int start, int end)
+    {
+        return Select(accessor.SelectBandsUsingCoord2(start, end));
+    }
+    public IEnumerable<T> SelectBandUsingCoord2(int coord2)
+    {
+        return Select(accessor.SelectBandUsingCoord2(coord2));
     }
 
     /*
