@@ -1,19 +1,25 @@
 ﻿// Author(s): Paul Calande
-// A script with which to read and write velocity
+// A class with which to read and write velocity
 // while taking the up direction into account.
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VelocityInUpSpace2D : MonoBehaviour
+public class VelocityInUpSpace2D
 {
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("The component with which to read and write velocity.")]
     Mover2D mover;
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("The up direction.")]
     UpDirection2D upDirection;
+
+    public VelocityInUpSpace2D(Mover2D mover, UpDirection2D upDirection)
+    {
+        this.mover = mover;
+        this.upDirection = upDirection;
+    }
 
     // Retrieves the GameObject's velocity relative to up space.
     public Vector2 GetVelocity()

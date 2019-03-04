@@ -5,16 +5,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundBasedJump2D : MonoBehaviour
+public class GroundBasedJump2D
 {
     // Invoked when a successful jump is performed.
     public delegate void JumpedHandler(float jumpVelocity);
     event JumpedHandler Jumped;
 
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("Reference to the GroundChecker to use.")]
     GroundChecker2D groundChecker;
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("Component to use to apply the jump force.")]
     VelocityInUpSpace2D vius;
 
@@ -23,6 +23,12 @@ public class GroundBasedJump2D : MonoBehaviour
     // This is necessary because the GroundChecker may still detect a ground
     // contact even if the Rigidbody is already in the air.
     int jumpCooldown = 0;
+
+    public GroundBasedJump2D(GroundChecker2D groundChecker, VelocityInUpSpace2D vius)
+    {
+        this.groundChecker = groundChecker;
+        this.vius = vius;
+    }
 
     // Try to jump with the given velocity.
     // Returns true if the jump successfully executed and false if it did not.
@@ -52,7 +58,7 @@ public class GroundBasedJump2D : MonoBehaviour
         Jumped += Callback;
     }
     
-    private void FixedUpdate()
+    public void Tick()
     {
         if (jumpCooldown != 0)
         {

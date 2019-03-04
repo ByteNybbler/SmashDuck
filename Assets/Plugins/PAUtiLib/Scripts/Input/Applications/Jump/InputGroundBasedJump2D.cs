@@ -1,40 +1,38 @@
 ﻿// Author(s): Paul Calande
 // Input component that allows for jumping.
+// For the event invoked when jumping, subscribe to GroundBasedJump2D.
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputGroundBasedJump2D : InputDistributed
+public class InputGroundBasedJump2D// : InputDistributed
 {
-    // Invoked when the player jumps successfully.
-    public delegate void JumpedHandler();
-    public event JumpedHandler Jumped;
-
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("The component to use for jumping.")]
-    GroundBasedJumper2D groundBasedJumper;
-    [SerializeField]
+    GroundBasedJump2D groundBasedJump;
+    //[SerializeField]
+    [Tooltip("The vertical velocity with which the Rigidbody jumps.")]
+    float jumpVelocity;
+    //[SerializeField]
     [Tooltip("What button to press to jump.")]
     KeyCode buttonJump = KeyCode.W;
 
-    public override void ReceiveInput(InputReader inputReader)
+    public InputGroundBasedJump2D(GroundBasedJump2D groundBasedJump,
+        float jumpVelocity, KeyCode buttonJump)
     {
-        if (inputReader.GetKeyDown(buttonJump))
-        {
-            // Try to jump.
-            if (groundBasedJumper.TryJump())
-            {
-                OnJumped();
-            }
-        }
+        this.groundBasedJump = groundBasedJump;
+        this.jumpVelocity = jumpVelocity;
+        this.buttonJump = buttonJump;
     }
 
-    private void OnJumped()
+    //public override void ReceiveInput(InputReader inputReader)
+    public void Tick()
     {
-        if (Jumped != null)
+        if (Input.GetKeyDown(buttonJump))
         {
-            Jumped();
+            // Try to jump.
+            groundBasedJump.TryJump(jumpVelocity);
         }
     }
 }

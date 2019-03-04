@@ -6,15 +6,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpDirection2D : MonoBehaviour
+public class UpDirection2D
 {
     // Invoked when the up angle is changed.
     public delegate void UpAngleChangedHandler();
     public event UpAngleChangedHandler UpAngleChanged;
 
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("The angle corresponding to the upwards direction.")]
     Angle upAngle = Angle.FromDegrees(90.0f);
+
+    public UpDirection2D(Angle upAngle)
+    {
+        this.upAngle = upAngle;
+    }
+    public UpDirection2D()
+    {
+        upAngle = Angle.FromDegrees(90.0f);
+    }
 
     // Returns the angle corresponding to the upwards direction.
     public Angle GetUpAngle()

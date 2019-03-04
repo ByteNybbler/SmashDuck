@@ -280,6 +280,18 @@ public class Angle : IDeepCopyable<Angle>
         return Angle.FromRandomDiameter(this, center);
     }
 
+    // Returns the z-axis quaternion equivalent to rotating by this angle.
+    public Quaternion GetQuaternionZ(bool counterclockwise = true)
+    {
+        return Quaternion.Euler(0.0f, 0.0f, degrees * UtilMath.Sign(counterclockwise));
+    }
+
+    // Returns the given vector once it's rotated by this angle.
+    public Vector2 RotateVector(Vector2 vector, bool counterclockwise = true)
+    {
+        return GetQuaternionZ(counterclockwise) * vector;
+    }
+
     // Adds this many degrees to the angle.
     public Angle AddDegrees(float degreesAdditional)
     {

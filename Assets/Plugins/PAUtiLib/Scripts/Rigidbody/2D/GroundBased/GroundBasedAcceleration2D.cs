@@ -6,39 +6,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundBasedAcceleration2D : MonoBehaviour
+public class GroundBasedAcceleration2D
 {
-    [SerializeField]
-    TimeScale timeScale;
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("Component for detecting whether the Rigidbody is grounded or not.")]
     GroundChecker2D groundChecker;
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("Accelerates the object perpendicular to the up direction.")]
     VelocityInUpSpace2D vius;
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("How quickly the object decelerates when on the ground.")]
     float groundDeceleration;
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("The maximum speed the object has for horizontal movement.")]
     float maxHorizontalSpeed;
 
     // The amount of horizontal acceleration accumulated this fixed timestep.
     float accumulatedHorizontalAcceleration = 0.0f;
 
-    private void FixedUpdate()
+    public GroundBasedAcceleration2D(GroundChecker2D groundChecker,
+        VelocityInUpSpace2D vius,
+        float groundDeceleration, float maxHorizontalSpeed)
+    {
+        this.groundChecker = groundChecker;
+        this.vius = vius;
+        this.groundDeceleration = groundDeceleration;
+        this.maxHorizontalSpeed = maxHorizontalSpeed;
+    }
+
+    public void Tick(float deltaTime)
     {
         Vector2 velocity = vius.GetVelocity();
-        float dt = timeScale.DeltaTime();
 
         // Decelerate if the Rigidbody is grounded and not accelerating.
         if (groundChecker.IsOnGround() && accumulatedHorizontalAcceleration == 0.0f)
         {
-            velocity.x = UtilApproach.Float(velocity.x, 0.0f, groundDeceleration * dt);
+            velocity.x = UtilApproach.Float(velocity.x, 0.0f, groundDeceleration * deltaTime);
         }
 
         // Accelerate the Rigidbody based on applied forces.
-        velocity.x += accumulatedHorizontalAcceleration * dt;
+        velocity.x += accumulatedHorizontalAcceleration * deltaTime;
         accumulatedHorizontalAcceleration = 0.0f;
 
         // Cap the Rigidbody's velocity.

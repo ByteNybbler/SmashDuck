@@ -13,6 +13,6 @@ public class GravityScaleIndexedList : FloatProductIndexedList
 
     private void Awake()
     {
-        SubscribeToProductUpdated(gravity.SetScale);
+        SubscribeToProductUpdated(gravity.SetAcceleration);
     }
 }

@@ -12,18 +12,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputVariableJump2D : InputDistributed
+public class InputVariableJump2D// : InputDistributed
 {
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("Tracks the direction along which velocity will be removed.")]
     VelocityInUpSpace2D vius;
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("Reference to the player's gravity component.")]
     Gravity2D gravity;
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("What the vertical velocity is multiplied by when the variable jump occurs.")]
     float variableJumpDampFactor = 0.5f;
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("What button to press to jump.")]
     KeyCode buttonJump = KeyCode.W;
 
@@ -33,11 +33,22 @@ public class InputVariableJump2D : InputDistributed
     // This makes sure the player can't trigger variable jumping multiple times per jump.
     bool variableJumped = true;
 
-    public override void ReceiveInput(InputReader inputReader)
+    public InputVariableJump2D(VelocityInUpSpace2D vius, Gravity2D gravity,
+        float variableJumpDampFactor, KeyCode buttonJump)
     {
-        if (inputReader.GetKeyUp(buttonJump))
+        this.vius = vius;
+        this.gravity = gravity;
+        this.variableJumpDampFactor = variableJumpDampFactor;
+        this.buttonJump = buttonJump;
+    }
+
+    //public override void ReceiveInput(InputReader inputReader)
+    public void Tick()
+    {
+        if (Input.GetKeyUp(buttonJump))
         {
-            if (!variableJumped)
+            // Do not allow variable jumping in zero gravity.
+            if (!variableJumped && gravity.GetAcceleration() != 0.0f)
             {
                 Vector2 velocity = vius.GetVelocity();
                 if (velocity.y > 0.0f)
@@ -56,14 +67,5 @@ public class InputVariableJump2D : InputDistributed
     public void ResetVariableJump()
     {
         variableJumped = false;
-    }
-
-    private void FixedUpdate()
-    {
-        // Do not allow variable jumping in zero gravity.
-        if (gravity.GetScale() == 0.0f)
-        {
-            variableJumped = true;
-        }
     }
 }

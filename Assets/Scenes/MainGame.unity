@@ -423,18 +423,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144010388}
   m_CullTransparentMesh: 0
---- !u!114 &263282825 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8077259107847935905, guid: f2ebccd128a4b814bb93f5494cc94848,
-    type: 3}
-  m_PrefabInstance: {fileID: 878344009}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f69b31af72f4e7d4085d17be9895bd58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &355490720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,6 +1063,16 @@ PrefabInstance:
       propertyPath: respawnPoint
       value: 
       objectReference: {fileID: 621630234}
+    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
+        type: 3}
+      propertyPath: buttonJump
+      value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
+        type: 3}
+      propertyPath: groundInputName
+      value: Horizontal2
+      objectReference: {fileID: 0}
     - target: {fileID: 8077259107847935910, guid: f2ebccd128a4b814bb93f5494cc94848,
         type: 3}
       propertyPath: immediatelySubscribeToManager
@@ -2066,18 +2064,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558386613}
   m_CullTransparentMesh: 0
---- !u!114 &1644558878 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8077259107847935905, guid: f2ebccd128a4b814bb93f5494cc94848,
-    type: 3}
-  m_PrefabInstance: {fileID: 8077259108972235757}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f69b31af72f4e7d4085d17be9895bd58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1729091548
 GameObject:
   m_ObjectHideFlags: 0
@@ -2743,7 +2729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2054124225
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2815,8 +2801,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInputs:
-  - {fileID: 1644558878}
-  - {fileID: 263282825}
+  - {fileID: 0}
+  - {fileID: 0}
   scoreboard: {fileID: 1549035250}
   textWinner: {fileID: 144010390}
 --- !u!1001 &2075924048

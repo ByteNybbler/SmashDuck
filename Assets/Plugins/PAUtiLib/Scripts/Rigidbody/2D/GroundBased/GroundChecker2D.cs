@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundChecker2D : MonoBehaviour
+public class GroundChecker2D
 {
     // Invoked when the object lands on the ground.
     public delegate void GroundLandedHandler();
@@ -14,15 +14,15 @@ public class GroundChecker2D : MonoBehaviour
     public delegate void GroundLeftHandler();
     public event GroundLeftHandler GroundLeft;
 
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("Reference to the Rigidbody to check the grounding of.")]
     Rigidbody2D rb;
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("Reference to the component for tracking the object's upwards direction.")]
     UpDirection2D upDirection;
-    [SerializeField]
+    //[SerializeField]
     [Tooltip("The maximum slope angle the Rigidbody can be on to be considered grounded.")]
-    float maxSlopeAngle = 60.0f;
+    Angle maxSlopeAngle = Angle.FromDegrees(60.0f);
 
     // Whether the GameObject is on the ground.
     bool isGrounded = false;
@@ -30,10 +30,19 @@ public class GroundChecker2D : MonoBehaviour
     ContactFilter2D filterGround = new ContactFilter2D();
     ContactPoint2D[] contactGround = new ContactPoint2D[4];
 
-    private void Start()
+    public GroundChecker2D(Rigidbody2D rb, UpDirection2D upDirection, Angle maxSlopeAngle)
     {
+        this.rb = rb;
+        this.upDirection = upDirection;
+        this.maxSlopeAngle = maxSlopeAngle;
+
         upDirection.UpAngleChanged += UpdateNormals;
         SetMaxSlopeAngle(maxSlopeAngle);
+    }
+
+    private float GetMaxSlopeDegrees()
+    {
+        return maxSlopeAngle.GetDegrees();
     }
 
     // Gets the angle that corresponds to the current up direction.
@@ -45,11 +54,13 @@ public class GroundChecker2D : MonoBehaviour
     // Update the normal angles for the contact filter.
     private void UpdateNormals()
     {
-        float upAngle = GetUpAngle().GetDegrees();
-        filterGround.SetNormalAngle(upAngle - maxSlopeAngle, upAngle + maxSlopeAngle);
+        float upAngleDegrees = GetUpAngle().GetDegrees();
+        float maxSlopeAngleDegrees = GetMaxSlopeDegrees();
+        filterGround.SetNormalAngle(upAngleDegrees - maxSlopeAngleDegrees,
+            upAngleDegrees + maxSlopeAngleDegrees);
     }
 
-    public void SetMaxSlopeAngle(float maxSlopeAngle)
+    public void SetMaxSlopeAngle(Angle maxSlopeAngle)
     {
         this.maxSlopeAngle = maxSlopeAngle;
         UpdateNormals();
@@ -68,7 +79,7 @@ public class GroundChecker2D : MonoBehaviour
         return isGrounded;
     }
 
-    private void FixedUpdate()
+    public void Tick()
     {
         bool oldGrounded = isGrounded;
         CalculateGrounded();

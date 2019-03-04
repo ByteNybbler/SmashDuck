@@ -34,10 +34,40 @@ public class Player : MonoBehaviour
 
     Timer timerInvincibility;
 
+    [SerializeField]
+    Mover2D mover;
+    [SerializeField]
+    Angle upAngle;
+    [SerializeField]
+    float gravityAcceleration;
+    [SerializeField]
+    Angle maxSlopeAngle;
+    [SerializeField]
+    float groundDeceleration;
+    [SerializeField]
+    float maxHorizontalSpeed;
+    [SerializeField]
+    float groundAcceleration;
+    [SerializeField]
+    string groundInputName;
+    [SerializeField]
+    float jumpVelocity;
+    [SerializeField]
+    KeyCode buttonJump;
+    [SerializeField]
+    float variableJumpDampFactor;
+    [SerializeField]
+    InputPlatformer inputPlatformer;
+
     private void Start()
     {
         timerInvincibility = new Timer(secondsOfInvincibility,
             TimerInvincibility_Finished, false, true);
+
+        inputPlatformer = new InputPlatformer(mover, rb,
+            upAngle, gravityAcceleration, maxSlopeAngle,
+            groundDeceleration, maxHorizontalSpeed, groundAcceleration, groundInputName,
+            jumpVelocity, buttonJump, variableJumpDampFactor);
     }
 
     private void TimerInvincibility_Finished(float secondsOverflow)
@@ -58,6 +88,8 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         timerInvincibility.Tick(Time.deltaTime);
+
+        inputPlatformer.Tick(Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
