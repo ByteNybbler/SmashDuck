@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 4295879095164545598}
   - component: {fileID: 8571897574326974272}
   - component: {fileID: 8688114870074957042}
+  - component: {fileID: 9120252661056919024}
   m_Layer: 0
   m_Name: SlapHitbox
   m_TagString: Slap
@@ -331,6 +332,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: 1
+--- !u!114 &9120252661056919024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3813315908383099128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cb7a5599164c94d945e98f40f1dcea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: {fileID: 8300000, guid: 3f6ff99996e49b648b299366a05277ca, type: 3}
 --- !u!1 &8056433954408152027
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,6 +630,7 @@ MonoBehaviour:
   weapon: {fileID: 8077259107847935904}
   slapVulnerabilityMultiplier: 10
   soundLand: {fileID: 8300000, guid: 72c7d803832a61a46a26a15a037ae764, type: 3}
+  soundDie: {fileID: 8300000, guid: 204a2247168047947bf2c590e6b2846d, type: 3}
   mover: {fileID: 8077259107847935919}
   upAngle:
     degrees: 90
@@ -654,6 +669,7 @@ MonoBehaviour:
   arms: {fileID: 1081817730189181189}
   inputName: Horizontal
   timerSlap: {fileID: 1294610087498250239}
+  soundPeaShooter: {fileID: 8300000, guid: 4c0d818690f5a8e469eacdf20f999c74, type: 3}
 --- !u!61 &8077259107847935907
 BoxCollider2D:
   m_ObjectHideFlags: 0

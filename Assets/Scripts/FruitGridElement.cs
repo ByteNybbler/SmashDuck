@@ -14,6 +14,9 @@ public class FruitGridElement : MonoBehaviour
     [SerializeField]
     [Tooltip("The text prefab to use for username marking.")]
     GameObject prefabRisingText;
+    [SerializeField]
+    [Tooltip("The sound that plays when an object is spawned.")]
+    AudioClip soundSpawnObject;
 
     // Whether this grid element is currently occupied by an object.
     bool occupied = false;
@@ -35,7 +38,7 @@ public class FruitGridElement : MonoBehaviour
                 currentObject = g;
 
                 CreditUser(userName);
-
+                ServiceLocator.GetAudioController().PlaySFX(soundSpawnObject);
                 occupied = true;
             }
         }

@@ -97,23 +97,6 @@ public class FruitGrid : MonoBehaviour
         {
             svaiActions.Roll()(target);
         }
-
-        /*
-        if (UtilRandom.Bool(0.5f))
-        {
-            target.Spawn("gun", botName);
-        }
-        else
-        {
-            target.Spawn("wall", botName);
-        }
-        */
-        /*
-        foreach (FruitGridElement elem in elements.SelectBandsUsingCoord2(0, 2))
-        {
-
-        }
-        */
     }
 
     private FruitGridElement GetElement(int x, int y)
@@ -132,6 +115,10 @@ public class FruitGrid : MonoBehaviour
     public void Spawn(string objectName, int x, int y, string userName)
     {
         FruitGridElement element = GetElement(x, y);
+        if (element.IsOccupied())
+        {
+            element.Clear("");
+        }
         element.Spawn(objectName, userName);
     }
 
@@ -162,6 +149,7 @@ public class FruitGrid : MonoBehaviour
                 client.SendWhisper(sourceName, "Spawn a wall at (3, 2): !wall 3 2");
                 client.SendWhisper(sourceName, "Spawn a gun at (2, 1): !gun 2 1");
                 client.SendWhisper(sourceName, "Spawn a spike block at (6, 4): !spike 6 4");
+                client.SendWhisper(sourceName, "Erase the tile at (2, 2): !erase 2 2");
                 break;
 
             case "erase":

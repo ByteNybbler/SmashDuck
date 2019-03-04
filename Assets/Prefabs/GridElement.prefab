@@ -53,6 +53,7 @@ MonoBehaviour:
   prefabsToSpawn: {fileID: 11400000, guid: ee72fdab8be465943837135304d2ad2a, type: 2}
   prefabRisingText: {fileID: 6137072507299304865, guid: 7971cb22d44f3ba41ab27b0feef3ff34,
     type: 3}
+  soundSpawnObject: {fileID: 8300000, guid: 4bf98b6745c28874aae0495076d48b55, type: 3}
 --- !u!222 &3585338316724608282
 CanvasRenderer:
   m_ObjectHideFlags: 0

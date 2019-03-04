@@ -626,6 +626,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382630809}
   m_CullTransparentMesh: 0
+--- !u!114 &439760661 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
+    type: 3}
+  m_PrefabInstance: {fileID: 8077259108972235757}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5af7d83f6ec01244892a5c9c7850d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,6 +907,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &773556733 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
+    type: 3}
+  m_PrefabInstance: {fileID: 878344009}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5af7d83f6ec01244892a5c9c7850d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &794272714
 GameObject:
   m_ObjectHideFlags: 0
@@ -2345,6 +2369,7 @@ GameObject:
   - component: {fileID: 1549035251}
   - component: {fileID: 1549035250}
   - component: {fileID: 1549035252}
+  - component: {fileID: 1549035253}
   m_Layer: 0
   m_Name: Scoreboard
   m_TagString: Untagged
@@ -2397,6 +2422,19 @@ MonoBehaviour:
       value: {fileID: 2008427443}
     - key: 2
       value: {fileID: 382630812}
+--- !u!114 &1549035253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549035249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06cb7a5599164c94d945e98f40f1dcea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: {fileID: 8300000, guid: e1834c259e43ffa4d88dd26d3f1b2c4d, type: 3}
 --- !u!1 &1558386613
 GameObject:
   m_ObjectHideFlags: 0
@@ -3619,9 +3657,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198c221d609c883498027f785904ed6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInputs:
-  - {fileID: 0}
-  - {fileID: 0}
+  players:
+  - {fileID: 439760661}
+  - {fileID: 773556733}
   scoreboard: {fileID: 1549035250}
   textWinner: {fileID: 144010390}
   winner1: {fileID: 1374844197}
@@ -3872,5 +3910,10 @@ PrefabInstance:
       propertyPath: weaponManager
       value: 
       objectReference: {fileID: 1525791596}
+    - target: {fileID: 8077259107847935904, guid: f2ebccd128a4b814bb93f5494cc94848,
+        type: 3}
+      propertyPath: soundPeaShooter
+      value: 
+      objectReference: {fileID: 8300000, guid: 4c0d818690f5a8e469eacdf20f999c74, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2ebccd128a4b814bb93f5494cc94848, type: 3}

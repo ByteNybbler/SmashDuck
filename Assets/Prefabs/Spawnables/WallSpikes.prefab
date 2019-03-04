@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4955757767187892079}
   - component: {fileID: 1601646160492655890}
   - component: {fileID: 4404122993385106367}
+  - component: {fileID: 7421020890728350857}
   m_Layer: 0
   m_Name: WallSpikes
   m_TagString: Hazard
@@ -147,3 +148,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   team: -1
+--- !u!114 &7421020890728350857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2769826278779429477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ae24b85f2334b54b96a48efb3984509, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: {fileID: 8300000, guid: 9fe6204f064deaa48a811fa80782a7bb, type: 3}

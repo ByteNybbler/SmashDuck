@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1829059286445276219}
   - component: {fileID: 2854426040338061066}
   - component: {fileID: 1380788813773103677}
+  - component: {fileID: 7153145952897586378}
   m_Layer: 0
   m_Name: PeaShooterPea
   m_TagString: Projectile
@@ -156,3 +157,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tags: {fileID: 11400000, guid: eba1e68817f2dd34b84d35b0a6de2229, type: 2}
+--- !u!114 &7153145952897586378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3074549208516008880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ae24b85f2334b54b96a48efb3984509, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: {fileID: 8300000, guid: 79956c971bc80a34cb582bb1673440d6, type: 3}

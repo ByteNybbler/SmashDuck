@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     [Tooltip("The sound that plays when a player lands on the ground.")]
     AudioClip soundLand;
+    [SerializeField]
+    [Tooltip("The sound that plays when a player dies.")]
+    AudioClip soundDie;
 
     Timer timerInvincibility;
     AudioController ac;
@@ -118,6 +121,7 @@ public class Player : MonoBehaviour
                 {
                     // DIE!!!
                     Die(otherTeam);
+                    ac.PlaySFX(soundDie);
                     // Destroy the projectile.
                     if (collision.CompareTag("Projectile"))
                     {

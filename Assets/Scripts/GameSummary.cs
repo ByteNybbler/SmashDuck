@@ -8,9 +8,14 @@ using UnityEngine.UI;
 
 public class GameSummary : MonoBehaviour
 {
+    /*
     [SerializeField]
     [Tooltip("Collection of all player inputs to disable when the window appears.")]
     InputDistributed[] playerInputs;
+    */
+    [SerializeField]
+    [Tooltip("Reference to the players.")]
+    Player[] players;
     [SerializeField]
     [Tooltip("The scoreboard to read from.")]
     Scoreboard scoreboard;
@@ -27,9 +32,16 @@ public class GameSummary : MonoBehaviour
     private void Start()
     {
         // Make all of the players not be controllable anymore.
+        /*
         foreach (InputDistributed input in playerInputs)
         {
             input.UnsubscribeFromDistributor();
+        }
+        */
+        foreach (Player player in players)
+        {
+            //player.enabled = false;
+            player.gameObject.SetActive(false);
         }
 
         // Change the text depending on the winner.

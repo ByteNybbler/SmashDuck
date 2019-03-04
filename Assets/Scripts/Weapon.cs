@@ -51,6 +51,8 @@ public class Weapon : MonoBehaviour
 
     Timer timerBetweenBullets;
 
+    AudioController ac;
+
     // Whether this player has a weapon or not.
     bool hasWeapon = false;
 
@@ -71,8 +73,14 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     MonoTimer timerSlap;
 
+    [SerializeField]
+    [Tooltip("The sound that plays when firing the pea shooter.")]
+    AudioClip soundPeaShooter;
+
     private void Start()
     {
+        ac = ServiceLocator.GetAudioController();
+
         timerBetweenBullets = new Timer(secondsBetweenBullets, TimerBetweenBullets_Finished);
         SetHasWeapon(false);
 
@@ -160,6 +168,7 @@ public class Weapon : MonoBehaviour
         if (timerBetweenBullets.Run())
         {
             bulletsFiredThisVolley = 0;
+            ac.PlaySFX(soundPeaShooter);
         }
     }
 
