@@ -1100,6 +1100,11 @@ PrefabInstance:
       propertyPath: weaponManager
       value: 
       objectReference: {fileID: 1525791596}
+    - target: {fileID: 8077259107847935904, guid: f2ebccd128a4b814bb93f5494cc94848,
+        type: 3}
+      propertyPath: inputName
+      value: Horizontal2
+      objectReference: {fileID: 0}
     - target: {fileID: 8077259107847935933, guid: f2ebccd128a4b814bb93f5494cc94848,
         type: 3}
       propertyPath: buttonJump
@@ -2360,7 +2365,7 @@ MonoBehaviour:
   height: 6
   secondsSVAI: 3
   secondsSVAIDelay: 10
-  numberOfInitialObjects: 4
+  numberOfInitialObjects: 1
   jumpHeightInCells: 2
 --- !u!114 &1848139079
 MonoBehaviour:

@@ -361,7 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gba: {fileID: 8077259107847935908}
-  acceleration: 16
+  acceleration: 24
 --- !u!114 &8077259107847935908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,7 +377,7 @@ MonoBehaviour:
   timeScale: {fileID: 0}
   groundChecker: {fileID: 8077259107847935915}
   vius: {fileID: 8077259107847935918}
-  groundDeceleration: 16
+  groundDeceleration: 24
   maxHorizontalSpeed: 8
 --- !u!114 &8077259107847935904
 MonoBehaviour:
@@ -401,6 +401,7 @@ MonoBehaviour:
   spreadAngle: 20
   weaponManager: {fileID: 0}
   heldWeapon: {fileID: 3088000271607260580}
+  inputName: Horizontal
 --- !u!61 &8077259107847935907
 BoxCollider2D:
   m_ObjectHideFlags: 0

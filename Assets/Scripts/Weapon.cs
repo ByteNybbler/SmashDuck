@@ -1,5 +1,5 @@
 ﻿// Author(s): Paul Calande
-// Weapon script for Fruit Gunch.
+// Weapon script to be placed on the player object in Fruit Gunch.
 
 using System.Collections;
 using System.Collections.Generic;
@@ -43,6 +43,12 @@ public class Weapon : MonoBehaviour
 
     int bulletsFiredThisVolley = 0;
 
+    [SerializeField]
+    [Tooltip("The name of the input to check whether the player is facing right.")]
+    string inputName;
+    // Whether the player is currently facing right.
+    bool playerFacingRight = true;
+
     private void Start()
     {
         timerBetweenBullets = new Timer(secondsBetweenBullets, TimerBetweenBullets_Finished);
@@ -57,6 +63,15 @@ public class Weapon : MonoBehaviour
             {
                 StartFiring();
             }
+        }
+
+        if (Input.GetAxis(inputName) < 0.0f)
+        {
+            playerFacingRight = false;
+        }
+        else if (Input.GetAxis(inputName) > 0.0f)
+        {
+            playerFacingRight = true;
         }
     }
 
@@ -120,6 +135,6 @@ public class Weapon : MonoBehaviour
         //Vector2 heading = spreadAngle.GetRandom().GetHeadingVector();
 
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-        rb.velocity = heading * UtilRandom.Sign() * projectileSpeed;
+        rb.velocity = heading * UtilMath.Sign(playerFacingRight) * projectileSpeed;
     }
 }
