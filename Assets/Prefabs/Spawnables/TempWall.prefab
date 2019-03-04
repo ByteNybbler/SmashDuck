@@ -11,11 +11,8 @@ GameObject:
   - component: {fileID: 2769826278779429472}
   - component: {fileID: 2769826278779429475}
   - component: {fileID: 2769826278779429474}
-  - component: {fileID: 2769826278779429470}
-  - component: {fileID: 2769826278779429473}
-  - component: {fileID: 2769826278779429471}
   - component: {fileID: 4955757767187892079}
-  - component: {fileID: 7285733538428726931}
+  - component: {fileID: 1601646160492655890}
   m_Layer: 0
   m_Name: TempWall
   m_TagString: Wall
@@ -111,48 +108,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.48, y: 0.48}
   m_EdgeRadius: 0
---- !u!114 &2769826278779429470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2769826278779429477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ca8554665f5d6b44a4f66fa8b068caa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeScale: {fileID: 2769826278779429473}
-  seconds: 4
-  loop: 0
-  clearOnRun: 0
---- !u!114 &2769826278779429473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2769826278779429477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eec8061c1df7c42468518ae649839847, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2769826278779429471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2769826278779429477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79544548f80570045aae88ad8fd5e5d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toDestroy: {fileID: 2769826278779429477}
-  timer: {fileID: 2769826278779429470}
 --- !u!114 &4955757767187892079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,16 +120,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b892c967d552e1408838a54c0c82f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7285733538428726931
+--- !u!114 &1601646160492655890
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2769826278779429477}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d78be1313929f1a48a4e0e1d9079e932, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fe75e37346118f4fb2081e8010151bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: {fileID: 2769826278779429470}
+  tags: {fileID: 11400000, guid: 7c377b185a7aaf24081dd5154150b8bc, type: 2}
