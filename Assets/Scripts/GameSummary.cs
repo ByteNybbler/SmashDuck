@@ -17,6 +17,12 @@ public class GameSummary : MonoBehaviour
     [SerializeField]
     [Tooltip("The text that specifies the winner.")]
     Text textWinner;
+    [SerializeField]
+    [Tooltip("GameObject that's activated when team 1 wins.")]
+    GameObject winner1;
+    [SerializeField]
+    [Tooltip("GameObject that's activated when team 2 wins.")]
+    GameObject winner2;
 
     private void Start()
     {
@@ -34,13 +40,16 @@ public class GameSummary : MonoBehaviour
         }
         else
         {
-            if (scoreboard.GetWinningTeam() == 1)
+            //if (scoreboard.GetWinningTeam() == 1)
+            if (scoreboard.GetScore(1) > scoreboard.GetScore(2))
             {
                 textWinner.text = "Apple wins!";
+                winner1.SetActive(true);
             }
             else
             {
                 textWinner.text = "Lemon wins!";
+                winner2.SetActive(true);
             }
         }
     }

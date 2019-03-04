@@ -40,6 +40,11 @@ public class TwitchClient : MonoBehaviour
         client.Connect();
     }
 
+    public void SetChannelName(string channelName)
+    {
+        this.channelName = channelName;
+    }
+
     private void Client_OnConnected(object sender, OnConnectedArgs e)
     {
         if (ClientConnected != null)

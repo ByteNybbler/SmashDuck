@@ -31,8 +31,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     [Tooltip("How far the player goes when slapped.")]
     float slapVulnerabilityMultiplier;
+    [SerializeField]
+    [Tooltip("The sound that plays when a player lands on the ground.")]
+    AudioClip soundLand;
 
     Timer timerInvincibility;
+    AudioController ac;
 
     [SerializeField]
     Mover2D mover;
@@ -61,6 +65,8 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        ac = ServiceLocator.GetAudioController();
+
         timerInvincibility = new Timer(secondsOfInvincibility,
             TimerInvincibility_Finished, false, true);
 
@@ -68,6 +74,7 @@ public class Player : MonoBehaviour
             upAngle, gravityAcceleration, maxSlopeAngle,
             groundDeceleration, maxHorizontalSpeed, groundAcceleration, groundInputName,
             jumpVelocity, buttonJump, variableJumpDampFactor);
+        inputPlatformer.SubscribeToLanded(LandOnGround);
     }
 
     private void TimerInvincibility_Finished(float secondsOverflow)
@@ -145,5 +152,11 @@ public class Player : MonoBehaviour
         // Respawn.
         rb.velocity = Vector2.zero;
         transform.position = respawnPoint.position;
+    }
+
+    private void LandOnGround()
+    {
+        //Debug.Log("Landed on ground.");
+        ac.PlaySFX(soundLand);
     }
 }

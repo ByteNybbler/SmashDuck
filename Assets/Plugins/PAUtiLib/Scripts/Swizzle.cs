@@ -29,13 +29,17 @@ public static class Swizzle
             case 'w':
             case 'a':
                 return vector.w;
-            case '-':
+            case '_':
                 return currentValue;
+            case '*':
+                return -currentValue;
             case '1':
                 return 1.0f;
             case '0':
             default:
                 return 0.0f;
+            case '-':
+                return -1.0f;
         }
     }
 
@@ -53,20 +57,32 @@ public static class Swizzle
     }
 
     public static Vector2 Vec2(Vector4 vectorToRead, string components,
-        Vector4 vectorToChange = new Vector4())
+        Vector4 vectorToChange)
     {
         return ReadComponents(vectorToRead, components, vectorToChange, 2);
     }
+    public static Vector2 Vec2(Vector4 vectorToRead, string components)
+    {
+        return ReadComponents(vectorToRead, components, vectorToRead, 2);
+    }
 
     public static Vector3 Vec3(Vector4 vectorToRead, string components,
-        Vector4 vectorToChange = new Vector4())
+        Vector4 vectorToChange)
     {
         return ReadComponents(vectorToRead, components, vectorToChange, 3);
     }
+    public static Vector3 Vec3(Vector4 vectorToRead, string components)
+    {
+        return ReadComponents(vectorToRead, components, vectorToRead, 3);
+    }
 
     public static Vector4 Vec4(Vector4 vectorToRead, string components,
-        Vector4 vectorToChange = new Vector4())
+        Vector4 vectorToChange)
     {
         return ReadComponents(vectorToRead, components, vectorToChange, 4);
+    }
+    public static Vector4 Vec4(Vector4 vectorToRead, string components)
+    {
+        return ReadComponents(vectorToRead, components, vectorToRead, 4);
     }
 }

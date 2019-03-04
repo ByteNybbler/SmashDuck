@@ -20,3 +20,6 @@ MonoBehaviour:
     - key: gun
       value: {fileID: 2635636321981706263, guid: a82376630c37e65418c16f73fa459100,
         type: 3}
+    - key: spike
+      value: {fileID: 2769826278779429477, guid: 7d90ef49d3bc12a47a3ae7bcce27d2bc,
+        type: 3}

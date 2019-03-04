@@ -35,6 +35,19 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     [Tooltip("The GameObject to activate when a weapon is collected.")]
     GameObject heldWeapon;
+    /*
+    [SerializeField]
+    [Tooltip("The sprite renderer for the arm.")]
+    SpriteRenderer rendererArm;
+    [SerializeField]
+    [Tooltip("Sprite for when the character is holding something.")]
+    Sprite spriteArmHolding;
+    [SerializeField]
+    [Tooltip("Sprite for when the character is not holding something.")]
+    Sprite spriteArmEmpty;
+    */
+    [SerializeField]
+    ActivationDictionary arms;
 
     Timer timerBetweenBullets;
 
@@ -83,10 +96,12 @@ public class Weapon : MonoBehaviour
         if (Input.GetAxis(inputName) < 0.0f)
         {
             playerFacingRight = false;
+            transform.localScale = Swizzle.Vec3(transform.localScale, "-__");
         }
         else if (Input.GetAxis(inputName) > 0.0f)
         {
             playerFacingRight = true;
+            transform.localScale = Swizzle.Vec3(transform.localScale, "1__");
         }
     }
 
@@ -116,6 +131,18 @@ public class Weapon : MonoBehaviour
     {
         hasWeapon = has;
         heldWeapon.SetActive(has);
+        arms.TrySetActive("holding", has);
+        arms.TrySetActive("empty", !has);
+        /*
+        if (has)
+        {
+            rendererArm.sprite = spriteArmHolding;
+        }
+        else
+        {
+            rendererArm.sprite = spriteArmEmpty;
+        }
+        */
     }
 
     public bool DiscardWeapon()

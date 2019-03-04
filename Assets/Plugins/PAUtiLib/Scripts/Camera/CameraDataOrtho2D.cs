@@ -55,7 +55,7 @@ public class CameraDataOrtho2D : IDeepCopyable<CameraDataOrtho2D>
     public void AssignTo(Camera cam)
     {
         // Move the camera to the new 2D position without modifying the camera z position.
-        cam.transform.position = Swizzle.Vec3(position, "xy-", cam.transform.position);
+        cam.transform.position = Swizzle.Vec3(position, "xy_", cam.transform.position);
         cam.orthographicSize = orthographicSize;
         cam.aspect = aspect;
     }

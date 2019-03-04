@@ -22,8 +22,8 @@ public class VelocityWheel2D : MonoBehaviour
     [SerializeField]
     [Tooltip("The mover to read the velocity from.")]
     Mover2D velocityReader;
-    [SerializeField]
-    [Tooltip("The up direction to use as a directional reference.")]
+    //[SerializeField]
+    //[Tooltip("The up direction to use as a directional reference.")]
     UpDirection2D upDirection;
     [SerializeField]
     [Tooltip("The directions along which to rotate the Rigidbody.")]
@@ -37,6 +37,11 @@ public class VelocityWheel2D : MonoBehaviour
 
     // The rigidbody velocity after being transformed to the up direction space.
     Vector2 velocityTransformed;
+
+    private void Awake()
+    {
+        upDirection = new UpDirection2D();
+    }
 
     private void Rotate(float linearVelocity)
     {

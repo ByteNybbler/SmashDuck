@@ -15,6 +15,9 @@ public class FruitGrid : MonoBehaviour
     [SerializeField]
     [Tooltip("Grid container.")]
     RectTransform gridContainer;
+    [SerializeField]
+    [Tooltip("The prefab for a marking on the grid axis.")]
+    GameObject prefabAxisMarking;
 
     // Could probably be segmented into a different class.
     [SerializeField]
@@ -54,12 +57,14 @@ public class FruitGrid : MonoBehaviour
 
     private void Start()
     {
-        elements = UtilInstantiate.GridOfRectTransforms<FruitGridElement>(
-            width, height, prefabCell, true, gridContainer);
+        elements = RectTransformGridCreator.MakeGrid<FruitGridElement>(
+            width, height, prefabCell, true, gridContainer,
+            prefabAxisMarking: prefabAxisMarking);
 
         svaiActions = new ProbabilityPercents<System.Action<FruitGridElement>>(null);
-        svaiActions.SetChance((ge) => ge.Spawn("gun", botName), 0.7f);
+        svaiActions.SetChance((ge) => ge.Spawn("gun", botName), 0.6f);
         svaiActions.SetChance((ge) => ge.Spawn("wall", botName), 0.3f);
+        svaiActions.SetChance((ge) => ge.Spawn("spike", botName), 0.1f);
         //svaiActions.SetChance((ge) => ge.Clear(botName), 0.5f);
 
         //timerSVAI = new Timer(secondsSVAI, TimerSVAI_Finished);
@@ -154,7 +159,9 @@ public class FruitGrid : MonoBehaviour
         switch (command)
         {
             case "help":
-                client.SendWhisper(sourceName, "Shut up. I'm not helping you.");
+                client.SendWhisper(sourceName, "Spawn a wall at (3, 2): !wall 3 2");
+                client.SendWhisper(sourceName, "Spawn a gun at (2, 1): !gun 2 1");
+                client.SendWhisper(sourceName, "Spawn a spike block at (6, 4): !spike 6 4");
                 break;
 
             case "erase":
