@@ -31,15 +31,22 @@ public class FruitGrid : MonoBehaviour
     int height = 8;
 
     [SerializeField]
-    [Tooltip("Seconds that the simulated viewer AI will wait after each viewer command.")]
+    [Tooltip("Seconds that the simulated viewer AI will wait between commands.")]
     float secondsSVAI;
+    [SerializeField]
+    [Tooltip("Seconds that the simulated viewer AI will wait before entering the command loop.")]
+    float secondsSVAIDelay;
+    [SerializeField]
+    [Tooltip("The number of initial objects placed by SVAI.")]
+    int numberOfInitialObjects;
     [SerializeField]
     [Tooltip("How high a player can jump in terms of cells of the grid.")]
     int jumpHeightInCells = 2;
 
     // Timer for the simulated viewer AI (also known as SVAI).
     // When this timer runs out, SVAI will run a fake viewer command.
-    Timer timerSVAI;
+    //Timer timerSVAI;
+    TimerDelayed timerSVAI;
     // The name that the SVAI uses when running commands.
     const string botName = "Bot";
     // The possible actions that SVAI can perform.
@@ -51,14 +58,18 @@ public class FruitGrid : MonoBehaviour
             width, height, prefabCell, true, gridContainer);
 
         svaiActions = new ProbabilityPercents<System.Action<FruitGridElement>>(null);
-        svaiActions.SetChance((ge) => ge.Spawn("gun", botName), 0.5f);
-        svaiActions.SetChance((ge) => ge.Spawn("wall", botName), 0.5f);
+        svaiActions.SetChance((ge) => ge.Spawn("gun", botName), 0.7f);
+        svaiActions.SetChance((ge) => ge.Spawn("wall", botName), 0.3f);
         //svaiActions.SetChance((ge) => ge.Clear(botName), 0.5f);
 
-        timerSVAI = new Timer(secondsSVAI, TimerSVAI_Finished);
+        //timerSVAI = new Timer(secondsSVAI, TimerSVAI_Finished);
+        timerSVAI = new TimerDelayed(secondsSVAIDelay, secondsSVAI, TimerSVAI_Finished);
         timerSVAI.Run();
-        // Make the SVAI place an object when the level first loads.
-        TimerSVAI_Finished(0.0f);
+        // Make the SVAI place a number of objects when the level first loads.
+        for (int i = 0; i < numberOfInitialObjects; ++i)
+        {
+            TimerSVAI_Finished(0.0f);
+        }
 
         client.ClientCommandReceived += ClientCommandReceived;
     }
@@ -109,7 +120,8 @@ public class FruitGrid : MonoBehaviour
     private void PlayerDidCommand()
     {
         // Reset the SVAI timer.
-        timerSVAI.Clear();
+        timerSVAI.Reset();
+        timerSVAI.Run();
     }
 
     public void Spawn(string objectName, int x, int y, string userName)

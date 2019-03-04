@@ -2311,7 +2311,9 @@ MonoBehaviour:
   client: {fileID: 1056731188}
   width: 8
   height: 6
-  secondsSVAI: 8
+  secondsSVAI: 3
+  secondsSVAIDelay: 10
+  numberOfInitialObjects: 4
   jumpHeightInCells: 2
 --- !u!114 &1848139079
 MonoBehaviour:

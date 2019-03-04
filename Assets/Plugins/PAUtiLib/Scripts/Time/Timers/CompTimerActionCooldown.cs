@@ -16,14 +16,6 @@ public class CompTimerActionCooldown
     // The callback that should happen when the action timer finishes.
     Timer.FinishedHandler actionFinishedCallback;
 
-    // Callback for the action timer.
-    private void TimerActionCallback(float secondsOverflow)
-    {
-        // Action finished. Start the cooldown.
-        timerCooldown.Run(secondsOverflow);
-        actionFinishedCallback(secondsOverflow);
-    }
-
     public CompTimerActionCooldown(float secondsAction, float secondsCooldown,
         Timer.FinishedHandler actionFinishedCallback = null,
         Timer.FinishedHandler cooldownFinishedCallback = null)
@@ -31,6 +23,14 @@ public class CompTimerActionCooldown
         this.actionFinishedCallback = actionFinishedCallback;
         timerAction = new Timer(secondsAction, TimerActionCallback, false);
         timerCooldown = new Timer(secondsCooldown, cooldownFinishedCallback, false);
+    }
+
+    // Callback for the action timer.
+    private void TimerActionCallback(float secondsOverflow)
+    {
+        // Action finished. Start the cooldown.
+        timerCooldown.Run(secondsOverflow);
+        actionFinishedCallback(secondsOverflow);
     }
 
     // Returns true if the composite timer is running.
