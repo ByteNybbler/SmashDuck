@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundBasedJump: {fileID: 8077259107847935909}
-  jumpVelocity: 6
+  jumpVelocity: 7
 --- !u!114 &8077259107847935915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,7 +425,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.48, y: 0.48}
+  m_Size: {x: 0.42, y: 0.46}
   m_EdgeRadius: 0
 --- !u!114 &8077259107847935933
 MonoBehaviour:
