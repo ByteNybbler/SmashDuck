@@ -660,7 +660,7 @@ GameObject:
   - component: {fileID: 608439097}
   m_Layer: 0
   m_Name: DeathBarrier
-  m_TagString: Untagged
+  m_TagString: Hazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -987,7 +987,7 @@ PrefabInstance:
     - target: {fileID: 8077259107847935952, guid: f2ebccd128a4b814bb93f5494cc94848,
         type: 3}
       propertyPath: m_Name
-      value: PlayerOrange
+      value: Player2
       objectReference: {fileID: 0}
     - target: {fileID: 8077259107847935905, guid: f2ebccd128a4b814bb93f5494cc94848,
         type: 3}
@@ -1114,6 +1114,11 @@ PrefabInstance:
         type: 3}
       propertyPath: buttonJump
       value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 8688114870074957042, guid: f2ebccd128a4b814bb93f5494cc94848,
+        type: 3}
+      propertyPath: team
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2ebccd128a4b814bb93f5494cc94848, type: 3}

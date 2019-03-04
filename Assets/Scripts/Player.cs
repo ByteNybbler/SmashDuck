@@ -28,6 +28,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     [Tooltip("Reference to the weapon component.")]
     Weapon weapon;
+    [SerializeField]
+    [Tooltip("How far the player goes when slapped.")]
+    float slapVulnerabilityMultiplier;
 
     Timer timerInvincibility;
 
@@ -66,12 +69,22 @@ public class Player : MonoBehaviour
             // Team -1 (stage hazards) can override invincibility frames.
             if (otherTeam != team && (!timerInvincibility.IsRunning() || otherTeam == -1))
             {
-                // DIE!!!
-                Die(otherTeam);
-                // Destroy the projectile.
-                if (collision.CompareTag("Projectile"))
+                if (collision.CompareTag("Slap") && collision.isActiveAndEnabled)
                 {
-                    Destroy(collision.gameObject);
+                    //Debug.Log("Slap!");
+                    Vector2 heading = transform.position - collision.transform.position;
+                    Vector2 dirn = heading.normalized;
+                    rb.velocity = dirn * slapVulnerabilityMultiplier;
+                }
+                else if (collision.CompareTag("Projectile") || collision.CompareTag("Hazard"))
+                {
+                    // DIE!!!
+                    Die(otherTeam);
+                    // Destroy the projectile.
+                    if (collision.CompareTag("Projectile"))
+                    {
+                        Destroy(collision.gameObject);
+                    }
                 }
             }
         }

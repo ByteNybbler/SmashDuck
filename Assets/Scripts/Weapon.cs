@@ -49,19 +49,34 @@ public class Weapon : MonoBehaviour
     // Whether the player is currently facing right.
     bool playerFacingRight = true;
 
+    /*
+    Timer timerSlap;
+    [SerializeField]
+    [Tooltip("How many seconds a slap lasts.")]
+    float secondsSlap;
+    */
+    [SerializeField]
+    MonoTimer timerSlap;
+
     private void Start()
     {
         timerBetweenBullets = new Timer(secondsBetweenBullets, TimerBetweenBullets_Finished);
         SetHasWeapon(false);
+
+        //timerSlap = new Timer(secondsSlap, null, false);
     }
 
     private void Update()
     {
-        if (hasWeapon)
+        if (Input.GetKeyDown(buttonToFire))
         {
-            if (Input.GetKeyDown(buttonToFire))
+            if (hasWeapon)
             {
                 StartFiring();
+            }
+            else
+            {
+                Slap();
             }
         }
 
@@ -92,6 +107,11 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    private void Slap()
+    {
+        timerSlap.Run();
+    }
+
     private void SetHasWeapon(bool has)
     {
         hasWeapon = has;
@@ -103,7 +123,6 @@ public class Weapon : MonoBehaviour
         if (hasWeapon)
         {
             SetHasWeapon(false);
-            //weaponManager.SpawnNewWeapon();
             return true;
         }
         return false;

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tagGroup:
     tags:
+    - Slap
     - Projectile
   inverted: 0
