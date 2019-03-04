@@ -71,7 +71,6 @@ public class Player : MonoBehaviour
             {
                 if (collision.CompareTag("Slap") && collision.isActiveAndEnabled)
                 {
-                    //Debug.Log("Slap!");
                     Vector2 heading = transform.position - collision.transform.position;
                     Vector2 dirn = heading.normalized;
                     rb.velocity = dirn * slapVulnerabilityMultiplier;
