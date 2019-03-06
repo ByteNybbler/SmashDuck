@@ -13,6 +13,10 @@ public class PlaySoundOnDestroy : MonoBehaviour
 
     private void OnDestroy()
     {
-        ServiceLocator.GetAudioController().PlaySFX(sound);
+        AudioController ac = ServiceLocator.GetAudioController();
+        if (ac != null)
+        {
+            ac.PlaySFX(sound);
+        }
     }
 }
