@@ -19,7 +19,7 @@ public class TwitchClient : MonoBehaviour
     public event ClientCommandReceivedHandler ClientCommandReceived;
 
     Client client;
-    string channelName = "toomuchfanservice";
+    static string channelName = "";
 
     private void Start()
     {
@@ -40,9 +40,9 @@ public class TwitchClient : MonoBehaviour
         client.Connect();
     }
 
-    public void SetChannelName(string channelName)
+    public static void SetChannelName(string channelName)
     {
-        this.channelName = channelName;
+        TwitchClient.channelName = channelName;
     }
 
     private void Client_OnConnected(object sender, OnConnectedArgs e)

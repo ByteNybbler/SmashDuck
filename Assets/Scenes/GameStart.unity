@@ -145,8 +145,8 @@ MonoBehaviour:
   - sceneAsset: {fileID: 102900000, guid: 3cdbd013c5ac8854296c64aaffc39668, type: 3}
     scenePath: Assets/Scenes/ServiceLocator.unity
   firstTemporaryScene:
-    sceneAsset: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
-    scenePath: Assets/Scenes/MainGame.unity
+    sceneAsset: {fileID: 102900000, guid: 6672bab2fc0100f40bce85c61c1d71a8, type: 3}
+    scenePath: Assets/Scenes/MainMenu.unity
 --- !u!4 &1558379050
 Transform:
   m_ObjectHideFlags: 0
