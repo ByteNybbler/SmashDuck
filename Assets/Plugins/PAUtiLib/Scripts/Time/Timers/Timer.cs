@@ -44,7 +44,7 @@ public class Timer : ITimer
     {
         if (seconds <= 0.0f)
         {
-            Debug.LogError($"Prevented instantiation of a timer that loops every {seconds}"
+            Debug.LogError("Prevented instantiation of a timer that loops every " + seconds
                 + " seconds. Make sure timers run for longer than 0 seconds. " +
                 "The timer has been set to loop every second to prevent an infinite loop.");
             seconds = 1.0f;

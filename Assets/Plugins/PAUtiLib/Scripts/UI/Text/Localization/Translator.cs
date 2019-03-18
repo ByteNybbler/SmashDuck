@@ -60,7 +60,8 @@ public class Translator : MonoBehaviour
         CultureInfo newCultureInfo = new CultureInfo(tag);
         if (newCultureInfo.IsNeutralCulture)
         {
-            Debug.LogError($"Failed to update CurrentCulture to {tag} due to it being a neutral culture.");
+            Debug.LogError("Failed to update CurrentCulture to " + tag
+                + " due to it being a neutral culture.");
         }
         else
         {
@@ -107,7 +108,8 @@ public class Translator : MonoBehaviour
     // string value from in the language file.
     public string Translate(string translationKey)
     {
-        if (translationReader.TryGet(translationKey, out string result))
+        string result;
+        if (translationReader.TryGet(translationKey, out result))
         {
             return result;
         }
