@@ -28,7 +28,7 @@ public class UpDirection2D
     // Returns the angle corresponding to the upwards direction.
     public Angle GetUpAngle()
     {
-        return upAngle.DeepCopy();
+        return upAngle;
     }
 
     // Changes the angle corresponding to the upwards direction.
@@ -41,7 +41,7 @@ public class UpDirection2D
     // Sets the up angle based on the given down angle.
     public void SetDownAngle(Angle angle)
     {
-        SetUpAngle(angle.Reverse());
+        SetUpAngle(angle.GetReverse());
     }
 
     // Returns the vector corresponding to the upwards direction.

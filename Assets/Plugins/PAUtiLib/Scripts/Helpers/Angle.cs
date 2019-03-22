@@ -1,5 +1,5 @@
 ﻿// Author(s): Paul Calande
-// Angle class with several different read-only repesentations,
+// Angle with several different read-only repesentations,
 // including degrees and radians.
 // This class also includes various other angle-related utility functions.
 // The internal angle representation is not clamped to the smallest possible coterminals.
@@ -10,10 +10,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Angle : IDeepCopyable<Angle>
+public struct Angle
 {
     // The common constant, 2*pi, is the full circumference of the unit circle.
     public const float TWO_PI = Mathf.PI * 2;
+    // An angle that has a measure of zero degrees.
+    public static Angle ZERO = Angle.FromDegrees(0.0f);
 
     // Unsigned interval for angles, in degrees: [0, 360).
     public static readonly IntervalFloat INTERVAL_UNSIGNED_DEGREES
@@ -79,7 +81,7 @@ public class Angle : IDeepCopyable<Angle>
     }
     public static Angle FromRandom(Angle end)
     {
-        return Angle.FromRandomDegrees(0.0f, end.GetDegrees());
+        return Angle.FromRandom(Angle.ZERO, end);
     }
     public static Angle FromRandom()
     {
@@ -94,9 +96,6 @@ public class Angle : IDeepCopyable<Angle>
     {
         return Angle.FromRadians(interval.GetRandom());
     }
-    // xzx
-    //const Angle ZORO = new Angle(0.0f);
-    //const Angle ZERO = Angle.FromDegrees(0.0f);
     // In this case, the radius of the angle refers to the measure between the
     // angle's center and the angle's end. In other words, the radius is half
     // of the angle's total measure.
@@ -104,19 +103,21 @@ public class Angle : IDeepCopyable<Angle>
     {
         return Angle.FromRandom(center - radius, center + radius);
     }
-    /*
     public static Angle FromRandomRadius(Angle radius)
     {
-        return Angle.FromRandomRadius(radius, )
+        return Angle.FromRandomRadius(radius, Angle.ZERO);
     }
-    */
     public static Angle FromRandomDiameter(Angle diameter, Angle center)
     {
         return Angle.FromRandomRadius(diameter * 0.5f, center);
     }
+    public static Angle FromRandomDiameter(Angle diameter)
+    {
+        return Angle.FromRandomDiameter(diameter, Angle.ZERO);
+    }
     public static Angle FromRandomRadiusDegrees(float radius, float center = 0.0f)
     {
-        return Angle.FromRandomDegrees(-radius, radius).AddDegrees(center);
+        return Angle.FromRandomDegrees(-radius + center, radius + center);
     }
     public static Angle FromRandomDiameterDegrees(float diameter, float center = 0.0f)
     {
@@ -174,6 +175,7 @@ public class Angle : IDeepCopyable<Angle>
         return Angle.FromHeadingVector(endPoint - startPoint);
     }
     /*
+    // TODO
     // Returns the angle to a moving point, given the point's velocity and the
     // theoretical projectile's velocity.
     public static Angle FromMovingPoint(Vector2 startPosition,
@@ -182,16 +184,6 @@ public class Angle : IDeepCopyable<Angle>
 
     }
     */
-
-    // Creates a copy of the given angle.
-    public Angle DeepCopy()
-    {
-        return new Angle(degrees);
-    }
-    public static Angle FromDeepCopy(Angle otherAngle)
-    {
-        return otherAngle.DeepCopy();
-    }
 
     // Returns a measurement of the angle.
     // This is not the measurement of the smallest possible coterminal.
@@ -225,39 +217,24 @@ public class Angle : IDeepCopyable<Angle>
     }
 
     // Converts an angle to the coterminal angle within the [-180, 180) range.
-    public Angle ToCoterminalSigned()
-    {
-        degrees = GetDegreesSigned();
-        return this;
-    }
     public Angle GetCoterminalSigned()
     {
-        return DeepCopy().ToCoterminalSigned();
+        return Angle.FromDegrees(GetDegreesSigned());
     }
 
     // Converts an angle to the coterminal angle within the [0, 360) range.
-    public Angle ToCoterminalUnsigned()
-    {
-        degrees = GetDegreesUnsigned();
-        return this;
-    }
     public Angle GetCoterminalUnsigned()
     {
-        return DeepCopy().ToCoterminalUnsigned();
+        return Angle.FromDegrees(GetDegreesUnsigned());
     }
 
     // Converts an angle to an equivalent angle within the range with the given center.
     // The range will always be 360 degrees in size.
-    public Angle ToCoterminal(Angle centerOfTheInterval)
+    public Angle GetCoterminal(Angle centerOfTheInterval)
     {
         IntervalFloat interval = IntervalFloat.FromRadius(
             180.0f, centerOfTheInterval.GetDegrees());
-        degrees = interval.Remainder(degrees);
-        return this;
-    }
-    public Angle GetCoterminal(Angle centerOfTheInterval)
-    {
-        return DeepCopy().ToCoterminal(centerOfTheInterval);
+        return Angle.FromDegrees(interval.Remainder(degrees));
     }
 
     // Returns a unit vector pointing in the direction given by the angle.
@@ -292,58 +269,22 @@ public class Angle : IDeepCopyable<Angle>
         return GetQuaternionZ(counterclockwise) * vector;
     }
 
-    // Adds this many degrees to the angle.
-    public Angle AddDegrees(float degreesAdditional)
-    {
-        degrees += degreesAdditional;
-        return this;
-    }
-
-    // Adds this many radians to the angle.
-    public Angle AddRadians(float radiansAdditional)
-    {
-        degrees += radiansAdditional * Mathf.Rad2Deg;
-        return this;
-    }
-
-    // Adds a different angle to this angle.
-    public Angle AddAngle(Angle other)
-    {
-        degrees += other.GetDegrees();
-        return this;
-    }
-
     // Rotates the angle by 180 degrees, effectively reversing its direction.
-    public Angle Reverse()
-    {
-        degrees = INTERVAL_UNSIGNED_DEGREES.Reverse(degrees);
-        return this;
-    }
     public Angle GetReverse()
     {
-        return DeepCopy().Reverse();
+        return Angle.FromDegrees(INTERVAL_UNSIGNED_DEGREES.Reverse(degrees));
     }
 
-    // Mirrors an angle across the y-axis of a circle.
-    public Angle MirrorHorizontal()
-    {
-        degrees = INTERVAL_UNSIGNED_DEGREES.MirrorHorizontal(degrees);
-        return this;
-    }
+    // Mirrors an angle across the y-axis of the unit circle.
     public Angle GetMirrorHorizontal()
     {
-        return DeepCopy().MirrorHorizontal();
+        return Angle.FromDegrees(INTERVAL_UNSIGNED_DEGREES.MirrorHorizontal(degrees));
     }
 
-    // Mirrors an angle across the x-axis of a circle.
-    public Angle MirrorVertical()
-    {
-        degrees = INTERVAL_UNSIGNED_DEGREES.MirrorVertical(degrees);
-        return this;
-    }
+    // Mirrors an angle across the x-axis of the unit circle.
     public Angle GetMirrorVertical()
     {
-        return DeepCopy().MirrorVertical();
+        return Angle.FromDegrees(INTERVAL_UNSIGNED_DEGREES.MirrorVertical(degrees));
     }
 
     /*
@@ -398,16 +339,16 @@ public class Angle : IDeepCopyable<Angle>
     public Angle ApproachCoterminal(Angle target, Angle stepSize,
         bool useShorterPath = true)
     {
-        degrees = INTERVAL_UNSIGNED_DEGREES.Approach(degrees, target.GetDegrees(),
+        float newDegrees = INTERVAL_UNSIGNED_DEGREES.Approach(degrees, target.GetDegrees(),
             stepSize.GetDegrees(), useShorterPath);
-        return this;
+        return Angle.FromDegrees(newDegrees);
     }
 
     // Move one angle towards another without considering coterminality.
     public Angle ApproachRaw(Angle target, Angle stepSize)
     {
-        degrees = UtilApproach.Float(degrees, target.degrees, stepSize.degrees);
-        return this;
+        float newDegrees = UtilApproach.Float(degrees, target.degrees, stepSize.degrees);
+        return Angle.FromDegrees(newDegrees);
     }
 
     // Returns the sign of the shortest rotation between the two angles' coterminals.

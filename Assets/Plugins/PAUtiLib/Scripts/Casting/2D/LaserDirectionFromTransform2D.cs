@@ -21,11 +21,11 @@ public class LaserDirectionFromTransform2D : MonoBehaviour
         Vector2 scale = laser.transform.lossyScale;
         if (scale.x < 0.0f)
         {
-            result.MirrorHorizontal();
+            result = result.GetMirrorHorizontal();
         }
         if (scale.y < 0.0f)
         {
-            result.MirrorVertical();
+            result = result.GetMirrorVertical();
         }
         return result.GetDegrees();
     }

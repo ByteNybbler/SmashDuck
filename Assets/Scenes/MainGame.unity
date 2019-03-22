@@ -1149,6 +1149,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player2
       objectReference: {fileID: 0}
+    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
+        type: 3}
+      propertyPath: scoreboard
+      value: 
+      objectReference: {fileID: 1549035250}
+    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
+        type: 3}
+      propertyPath: team
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
+        type: 3}
+      propertyPath: respawnPoint
+      value: 
+      objectReference: {fileID: 621630234}
+    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
+        type: 3}
+      propertyPath: buttonJump
+      value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
+        type: 3}
+      propertyPath: groundInputName
+      value: Horizontal2
+      objectReference: {fileID: 0}
     - target: {fileID: 8077259107847935905, guid: f2ebccd128a4b814bb93f5494cc94848,
         type: 3}
       propertyPath: inputName
@@ -1220,31 +1245,6 @@ PrefabInstance:
       propertyPath: timeScale
       value: 
       objectReference: {fileID: 25594757}
-    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
-        type: 3}
-      propertyPath: scoreboard
-      value: 
-      objectReference: {fileID: 1549035250}
-    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
-        type: 3}
-      propertyPath: team
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
-        type: 3}
-      propertyPath: respawnPoint
-      value: 
-      objectReference: {fileID: 621630234}
-    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
-        type: 3}
-      propertyPath: buttonJump
-      value: 105
-      objectReference: {fileID: 0}
-    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
-        type: 3}
-      propertyPath: groundInputName
-      value: Horizontal2
-      objectReference: {fileID: 0}
     - target: {fileID: 8077259107847935910, guid: f2ebccd128a4b814bb93f5494cc94848,
         type: 3}
       propertyPath: immediatelySubscribeToManager
@@ -3830,6 +3830,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
+        type: 3}
+      propertyPath: scoreboard
+      value: 
+      objectReference: {fileID: 1549035250}
+    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
+        type: 3}
+      propertyPath: respawnPoint
+      value: 
+      objectReference: {fileID: 621630234}
     - target: {fileID: 8077259107847935954, guid: f2ebccd128a4b814bb93f5494cc94848,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3890,16 +3900,6 @@ PrefabInstance:
       propertyPath: timeScale
       value: 
       objectReference: {fileID: 25594757}
-    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
-        type: 3}
-      propertyPath: scoreboard
-      value: 
-      objectReference: {fileID: 1549035250}
-    - target: {fileID: 8077259107847935912, guid: f2ebccd128a4b814bb93f5494cc94848,
-        type: 3}
-      propertyPath: respawnPoint
-      value: 
-      objectReference: {fileID: 621630234}
     - target: {fileID: 8077259107847935908, guid: f2ebccd128a4b814bb93f5494cc94848,
         type: 3}
       propertyPath: timeScale

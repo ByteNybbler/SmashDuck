@@ -20,7 +20,7 @@ public class CameraUpDirection2D : MonoBehaviour
     {
         Vector3 euler = transform.eulerAngles;
         euler.z = Angle.FromDegrees(euler.z).ApproachCoterminal(
-            upDirection.GetUpAngle().AddDegrees(-90.0f),
+            upDirection.GetUpAngle() - Angle.FromDegrees(90.0f),
             rotationSpeed * timeScale.DeltaTime())
             .GetDegrees();
         transform.rotation = Quaternion.Euler(euler);
